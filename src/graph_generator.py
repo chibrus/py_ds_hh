@@ -3,13 +3,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# Создание папки "Графики", если она не существует
-output_dir = "./Графики"
+
+# Создание папки "graphs", если она не существует
+output_dir = "./graphs"
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
+
 # Загрузка данных из Excel
-data = pd.read_excel('./good_data.xlsx')
+data = pd.read_excel('./data/data.xlsx')
 
 # Функция для построения графиков в соответствии с заданиями
 def generate_reports(data):
@@ -28,7 +30,6 @@ def generate_reports(data):
                 plt.tight_layout()
                 plt.savefig(os.path.join(output_dir, f'clustered_bar_{col1}_{col2}.png'))
                 plt.show()
-
 
             elif (data[col1].dtype in ['int64', 'float64']) and data[col2].dtype == 'object':
                 # графический отчет «категоризированная гистограмма» для пары «количественный атрибут — качественный атрибут»
