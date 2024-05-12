@@ -1,7 +1,11 @@
 import pandas as pd
+import os
 
 df = pd.read_excel('./data/data.xlsx')
 
+# Создаем папку для сохранения отчетов
+output_folder = 'output'
+os.makedirs(output_folder, exist_ok=True)
 
 def vacancy_report(df: pd.DataFrame, city: str) -> pd.DataFrame:
     """
@@ -84,27 +88,22 @@ def pivot_table_report(df: pd.DataFrame, index_column: str, columns_column: str,
     return pd.pivot_table(df, index=index_column, columns=columns_column, values=values_column, aggfunc='count')
 
 
-# Создание отчета о вакансиях в Москве
+# Создаем отчет о вакансиях в Москве
 moscow_vacancies = vacancy_report(df, 'Москва')
-print("Отчет о вакансиях в Москве:")
-print(moscow_vacancies)
+moscow_vacancies.to_markdown(os.path.join(output_folder, 'moscow_vacancies.md'), index=False)
 
-# Создание отчета о вакансиях для стажеров
+# Создаем отчет о вакансиях для стажеров
 developer_vacancies = position_report(df, 'Стажер')
-print("\nОтчет о вакансиях для стажеров:")
-print(developer_vacancies)
+developer_vacancies.to_markdown(os.path.join(output_folder, 'developer_vacancies.md'), index=False)
 
-# Создание отчетов о вакансиях с зарплатой от 50000 до 80000 рублей
+# Создаем отчеты о вакансиях с зарплатой от 50000 до 80000 рублей
 salary_range = salary_range_report(df, 50000, 80000)
-print("\nОтчет о вакансиях с зарплатой от 50000 до 80000 рублей:")
-print(salary_range)
+salary_range.to_markdown(os.path.join(output_folder, 'salary_range_report.md'), index=False)
 
-# Создание отчета о вакансиях для языка программирования Python
+# Создаем отчет о вакансиях для языка программирования Python
 python_vacancies = programming_language_report(df, 'Python')
-print("\nОтчет о вакансиях для языка программирования Python:")
-print(python_vacancies)
+python_vacancies.to_markdown(os.path.join(output_folder, 'python_vacancies.md'), index=False)
 
-# Создание сводной таблицы по городам и компаниям
+# Создаем сводную таблицу по городам и компаниям
 pivot_table = pivot_table_report(df, 'Город', 'Компания', 'Название вакансии')
-print("\nСводная таблица по городам и компаниям:")
-print(pivot_table)
+pivot_table.to_markdown(os.path.join(output_folder, 'pivot_table_report.md'))

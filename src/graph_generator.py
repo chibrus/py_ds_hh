@@ -4,8 +4,8 @@ import seaborn as sns
 import os
 
 
-# Создание папки "graphs", если она не существует
-output_dir = "./graphs"
+# Создание папки "graphics", если она не существует
+output_dir = "./graphics"
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
