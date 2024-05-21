@@ -3,14 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Чтение данных из файла Excel
-file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
-df = pd.read_excel(file_path)
 
 # Создание директории для сохранения графиков, если её нет
 output_dir = os.path.join(os.path.dirname(__file__), '..', 'graphics')
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
 
 
 def create_salary_vs_vacancies_plot(df):
@@ -148,6 +143,12 @@ def create_specialty_vs_vacancies_plot(specialty_counts):
 
 
 def main(grades, posts):
+    # Чтение данных из файла Excel
+    file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
+    df = pd.read_excel(file_path)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
     create_salary_vs_vacancies_plot(df)
     create_experience_vs_vacancies_plot(df)
     create_employment_type_vs_vacancies_plot(df)
