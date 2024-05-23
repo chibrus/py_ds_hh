@@ -1,37 +1,47 @@
 from tkinter import *
+from ttkbootstrap import Style
+from tkinter import ttk
 import src.parser
 import src.graph_generator
 
 
 def search():
-    final_label.configure(text="Your request is being processed")
+    final_label.configure(text="Ваш запрос обрабатывается...", bootstyle="info")
+    root.update_idletasks()  # Обновить интерфейс
     query = query_entry.get()
     city = city_entry.get()
     gradesG, postsG = src.parser.main(query, city)
-    final_label.configure(text="Done")
+    final_label.configure(text="Готово!", bootstyle="success")
     src.graph_generator.main(gradesG, postsG)
 
 
 root = Tk()
-root.geometry("700x400")
+root.geometry("800x500")
+root.title("Сбор и анализ данных с hh.ru")
 
-head_label = Label(root, text="Headhunter parsing", font=("Arial", 30))
-head_label.pack(pady=20)
+style = Style(theme='solar')
 
-query_label = Label(root, text="Query:", font=("Arial", 20))
-query_label.pack()
-query_entry = Entry(root, justify="center")
-query_entry.pack()
+head_label = ttk.Label(root, text="Сбор и анализ данных с hh.ru", font=("Arial", 30))
+head_label.pack(pady=30)
 
-city_label = Label(root, text="City:", font=("Arial", 20))
-city_label.pack()
-city_entry = Entry(root, justify="center")
-city_entry.pack()
+query_frame = ttk.Frame(root)
+query_frame.pack(pady=10, padx=10, fill="x")
+query_label = ttk.Label(query_frame, text="Запрос:", font=("Arial", 14))
+query_label.pack(side=LEFT, padx=5)
+query_entry = ttk.Entry(query_frame, font=("Arial", 14))
+query_entry.pack(side=LEFT, fill="x", expand=True, padx=5)
 
-search_button = Button(root, text="search", command=search)
-search_button.pack(pady=10)
+city_frame = ttk.Frame(root)
+city_frame.pack(pady=10, padx=10, fill="x")
+city_label = ttk.Label(city_frame, text="Город:", font=("Arial", 14))
+city_label.pack(side=LEFT, padx=5)
+city_entry = ttk.Entry(city_frame, font=("Arial", 14))
+city_entry.pack(side=LEFT, fill="x", expand=True, padx=5)
 
-final_label = Label(root, text="")
-final_label.pack()
+search_button = ttk.Button(root, text="Поиск", command=search, style='primary.TButton')
+search_button.pack(pady=20)
+
+final_label = ttk.Label(root, text="", font=("Arial", 14))
+final_label.pack(pady=20)
 
 root.mainloop()
