@@ -10,6 +10,11 @@ def search():
     root.update_idletasks()  # Обновить интерфейс
     query = query_entry.get()
     city = city_entry.get()
+
+    src.parser.count = 0
+    src.parser.gradesG = [0, 0, 0, 0]
+    src.parser.postsG = [0, 0, 0, 0, 0]
+
     gradesG, postsG = src.parser.main(query, city)
     final_label.configure(text="Готово!", bootstyle="success")
     src.graph_generator.main(gradesG, postsG)
