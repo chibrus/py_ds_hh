@@ -72,5 +72,3 @@ def main(query, query_city):
 
 
     return gradesG, postsG
-
-# main("Python", "Москва")
