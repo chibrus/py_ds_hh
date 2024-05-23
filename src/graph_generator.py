@@ -155,6 +155,3 @@ def main(grades, posts):
     create_requirements_vs_vacancies_plot(df)
     create_level_vs_vacancies_plot(grades)
     create_specialty_vs_vacancies_plot(posts)
-
-
-# main([1,1,1,1], [1,1,1,1,1])
