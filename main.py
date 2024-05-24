@@ -7,17 +7,17 @@ import src.graph_generator
 
 def search():
     final_label.configure(text="Ваш запрос обрабатывается...", bootstyle="info")
-    root.update_idletasks()  # Обновить интерфейс
+    root.update_idletasks()  # обновить интерфейс
     query = query_entry.get()
     city = city_entry.get()
 
     src.parser.count = 0
     src.parser.gradesG = [0, 0, 0, 0]
     src.parser.postsG = [0, 0, 0, 0, 0]
+    gradesG, postsG = src.parser.main(query, city)  # парсим
+    src.graph_generator.main(gradesG, postsG, query.lower())   # рисуем графики
 
-    gradesG, postsG = src.parser.main(query, city)
     final_label.configure(text="Готово!", bootstyle="success")
-    src.graph_generator.main(gradesG, postsG)
 
 
 root = Tk()

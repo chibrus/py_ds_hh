@@ -77,8 +77,35 @@ def create_employment_type_vs_vacancies_plot(df):
     plt.show()
 
 
-def create_requirements_vs_vacancies_plot(df):
-    keywords = ['SQL', 'Django', 'Linux', 'Shell', 'Git', 'Flask', 'API', 'Docker']
+def stack(query):
+    if "python" in query:
+        return ['SQL', 'Django', 'Linux', 'Shell', 'Git', 'Flask', 'API', 'Docker']
+    elif "c++" in query:
+        return ['STL', 'Boost', 'Qt', 'CMake', 'Linux', 'Multithreading', 'OpenGL', 'Git']
+    elif "c" in query:
+        return ['Embedded', 'RTOS', 'Microcontrollers', 'Linux', 'Kernel', 'GDB', 'Assembly', 'Makefile']
+    elif "c#" in query:
+        return ['.NET', 'ASP.NET', 'Entity Framework', 'LINQ', 'WPF', 'Xamarin', 'Azure', 'SQL']
+    elif "java" in query:
+        return ['Spring', 'Hibernate', 'Maven', 'JPA', 'Microservices', 'Kubernetes', 'Jenkins', 'SQL']
+    elif "javascript" in query:
+        return ['Node.js', 'React', 'Vue.js', 'Angular', 'ES6', 'TypeScript', 'Webpack', 'Jest']
+    elif "web" in query:
+        return ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL', 'WordPress', 'Bootstrap', 'jQuery']
+    elif "go" in query:
+        return ['Golang', 'Docker', 'Kubernetes', 'Microservices', 'REST', 'gRPC', 'PostgreSQL', 'Redis']
+    elif "swift" in query:
+        return ['iOS', 'Xcode', 'CocoaPods', 'CoreData', 'SwiftUI', 'Objective-C', 'UIKit', 'REST']
+    elif "ruby" in query:
+        return ['Rails', 'Sinatra', 'RSpec', 'Capistrano', 'Puma', 'Sidekiq', 'PostgreSQL', 'Heroku']
+    elif "kotlin" in query:
+        return ['Android', 'Ktor', 'Spring', 'Coroutines', 'Koin', 'Jetpack Compose', 'SQL', 'Gradle']
+    else:
+        return ['SQL', 'Linux', 'Shell', 'Git', 'API', 'Docker']
+
+
+def create_requirements_vs_vacancies_plot(df, query):
+    keywords = stack(query)
     requirements_counts = {keyword: df['Требования'].str.contains(keyword, case=False, na=False).sum() for keyword in
                            keywords}
     requirements_counts = pd.DataFrame(list(requirements_counts.items()), columns=['Требование', 'Количество вакансий'])
@@ -142,7 +169,7 @@ def create_specialty_vs_vacancies_plot(specialty_counts):
     plt.show()
 
 
-def main(grades, posts):
+def main(grades, posts, query):
     # Чтение данных из файла Excel
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
@@ -152,6 +179,6 @@ def main(grades, posts):
     create_salary_vs_vacancies_plot(df)
     create_experience_vs_vacancies_plot(df)
     create_employment_type_vs_vacancies_plot(df)
-    create_requirements_vs_vacancies_plot(df)
+    create_requirements_vs_vacancies_plot(df, query)
     create_level_vs_vacancies_plot(grades)
     create_specialty_vs_vacancies_plot(posts)
