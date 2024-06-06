@@ -70,5 +70,4 @@ def main(query, query_city):
         os.makedirs(data_dir)
     wb.save(os.path.join(data_dir, "data.xlsx"))
 
-
     return gradesG, postsG
