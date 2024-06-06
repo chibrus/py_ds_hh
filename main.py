@@ -1,8 +1,8 @@
 from tkinter import *
 from ttkbootstrap import Style
 from tkinter import ttk
-import src.parser
-import src.graph_generator
+import library.parser
+import library.graph_generator
 
 
 def search():
@@ -11,11 +11,11 @@ def search():
     query = query_entry.get()
     city = city_entry.get()
 
-    src.parser.count = 0
-    src.parser.gradesG = [0, 0, 0, 0]
-    src.parser.postsG = [0, 0, 0, 0, 0]
-    gradesG, postsG = src.parser.main(query, city)  # парсим
-    src.graph_generator.main(gradesG, postsG, query.lower())   # рисуем графики
+    library.parser.count = 0
+    library.parser.gradesG = [0, 0, 0, 0]
+    library.parser.postsG = [0, 0, 0, 0, 0]
+    gradesG, postsG = library.parser.main(query, city)  # парсим
+    library.graph_generator.main(gradesG, postsG, query.lower())   # рисуем графики
 
     final_label.configure(text="Готово!", bootstyle="success")
 
