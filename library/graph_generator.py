@@ -176,9 +176,8 @@ def main():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     return df
-    # create_salary_vs_vacancies_plot(df)
-    # create_experience_vs_vacancies_plot(df)
-    # create_employment_type_vs_vacancies_plot(df)
-    # create_requirements_vs_vacancies_plot(df, query)
-    # create_level_vs_vacancies_plot(grades)
-    # create_specialty_vs_vacancies_plot(posts)
+
+
+if __name__ == "__main__":
+    main()
+

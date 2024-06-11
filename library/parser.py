@@ -71,3 +71,9 @@ def main(query, query_city):
     wb.save(os.path.join(data_dir, "data.xlsx"))
 
     return gradesG, postsG
+
+
+if __name__ == "__main__":
+    query = "Test"
+    query_city = "Москва"
+    main(query, query_city)
