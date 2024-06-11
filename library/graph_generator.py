@@ -169,16 +169,16 @@ def create_specialty_vs_vacancies_plot(specialty_counts):
     plt.show()
 
 
-def main(grades, posts, query):
+def main():
     # Чтение данных из файла Excel
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-
-    create_salary_vs_vacancies_plot(df)
-    create_experience_vs_vacancies_plot(df)
-    create_employment_type_vs_vacancies_plot(df)
-    create_requirements_vs_vacancies_plot(df, query)
-    create_level_vs_vacancies_plot(grades)
-    create_specialty_vs_vacancies_plot(posts)
+    return df
+    # create_salary_vs_vacancies_plot(df)
+    # create_experience_vs_vacancies_plot(df)
+    # create_employment_type_vs_vacancies_plot(df)
+    # create_requirements_vs_vacancies_plot(df, query)
+    # create_level_vs_vacancies_plot(grades)
+    # create_specialty_vs_vacancies_plot(posts)
