@@ -3,6 +3,7 @@ from ttkbootstrap import Style
 from tkinter import ttk
 import library.parser
 import library.graph_generator
+import library.user_graph
 import configparser
 
 
@@ -32,11 +33,12 @@ def pars(query, city):
     specialty_vs_vacancies_button.grid(row=0, column=5, padx=5, pady=5)
     specialty_vs_vacancies_button.configure(command=lambda: library.graph_generator.create_specialty_vs_vacancies_plot(postsG))
     
-    user_graph_label.grid(row=0, column=0, columnspan=3, pady=5)
+    user_graph_label.grid(row=0, column=0, columnspan=4, pady=5)
     user_col1_combobox.grid(row=1, column=0, padx=5, pady=5)
     user_col2_combobox.grid(row=1, column=1, padx=5, pady=5)
     user_type_combobox.grid(row=1, column=2, padx=5, pady=5)
     user_graph_button.grid(row=1, column=3, padx=5, pady=5)
+    user_graph_button.configure(command=lambda: library.user_graph.main(user_col1_combobox.get(), user_col2_combobox.get(), user_type_combobox.get()))
 
     final_label.configure(text="Готово!", bootstyle="success")
 
@@ -95,9 +97,10 @@ buttons_frame.place(relx=0.5, rely=0.68, anchor=CENTER)
 user_graph_frame = ttk.Frame(root)
 user_graph_frame.pack(pady=10)
 user_graph_label = ttk.Label(user_graph_frame, text="Пользовательские графики", bootstyle="primary", font=("Arial", 14))
-user_col1_combobox = ttk.Combobox(user_graph_frame, values=["1", "2", "3"])
-user_col2_combobox = ttk.Combobox(user_graph_frame, values=["1", "2", "3"])
-user_type_combobox = ttk.Combobox(user_graph_frame, values=["1", "2", "3"])
+colums = ["Зарплата", "Опыт работы", "Тип занятости", "Наличие теста для кандидатов", "График работы"]
+user_col1_combobox = ttk.Combobox(user_graph_frame, values=colums)
+user_col2_combobox = ttk.Combobox(user_graph_frame, values=colums)
+user_type_combobox = ttk.Combobox(user_graph_frame, values=["clustered_bar", "categorized_histogram", "categorized_boxplot", "categorized_scatter"])
 user_graph_button = ttk.Button(user_graph_frame, text="Построить")
 user_graph_frame.place(relx=0.5, rely=0.8, anchor=CENTER)
 
