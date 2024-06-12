@@ -56,6 +56,11 @@ def pars(query, city):
         )
     )
 
+    text_report_label.grid(row=0, column=0, columnspan=3, pady=5)
+    text_report1_button.grid(row=1, column=0, padx=5, pady=5)
+    text_report2_button.grid(row=1, column=1, padx=5, pady=5)
+    text_report3_button.grid(row=1, column=2, padx=5, pady=5)
+
     final_label.configure(text="Готово!", bootstyle="success")
 
 
@@ -114,7 +119,7 @@ employment_type_vs_vacancies_button = ttk.Button(buttons_frame, text="Тип з�
 requirements_vs_vacancies_button = ttk.Button(buttons_frame, text="Требования")
 level_vs_vacancies_button = ttk.Button(buttons_frame, text="Уровень")
 specialty_vs_vacancies_button = ttk.Button(buttons_frame, text="Специальность")
-buttons_frame.place(relx=0.5, rely=0.68, anchor=CENTER)
+# buttons_frame.place(relx=0.5, rely=0.68, anchor=CENTER)
 
 # Виджеты для пользовательских графиков
 user_graph_frame = ttk.Frame(root)
@@ -135,7 +140,18 @@ user_type_combobox = ttk.Combobox(
     ]
 )
 user_graph_button = ttk.Button(user_graph_frame, text="Построить")
-user_graph_frame.place(relx=0.5, rely=0.8, anchor=CENTER)
+# user_graph_frame.place(relx=0.5, rely=0.8, anchor=CENTER)
+
+# Виджеты для текстовых отчётов
+text_report_frame = ttk.Frame(root)
+text_report_frame.pack(pady=10)
+text_report_label = ttk.Label(
+    text_report_frame, text="Текстовые отчёты", bootstyle="primary", font=("Arial", 14)
+)
+text_report1_button = ttk.Button(text_report_frame, text="Текстовый отчёт 1")
+text_report2_button = ttk.Button(text_report_frame, text="Текстовый отчёт 2")
+text_report3_button = ttk.Button(text_report_frame, text="Текстовый отчёт 3")
+# text_report_frame.place(relx=0.5, rely=0.9, anchor=CENTER)
 
 # Кнопки для изменения стиля интерфейса
 theme_buttons_frame = ttk.Frame(root)
