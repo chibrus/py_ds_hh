@@ -3,6 +3,7 @@ from ttkbootstrap import Style
 from tkinter import ttk
 import library.parser
 import library.graph_generator
+import configparser
 
 
 def search():
@@ -10,6 +11,8 @@ def search():
     root.update_idletasks()  # обновить интерфейс
     query = query_entry.get()
     city = city_entry.get()
+    query = "Python разработчик"
+    city = "Москва"
 
     library.parser.count = 0
     library.parser.gradesG = [0, 0, 0, 0]
@@ -29,29 +32,44 @@ def search():
     level_vs_vacancies_button.configure(command=lambda: library.graph_generator.create_level_vs_vacancies_plot(gradesG))
     specialty_vs_vacancies_button.grid(row=0, column=5, padx=5, pady=5)
     specialty_vs_vacancies_button.configure(command=lambda: library.graph_generator.create_specialty_vs_vacancies_plot(postsG))
+    
+    user_graph_label.grid(row=0, column=0, columnspan=3, pady=5)
+    user_col1_combobox.grid(row=1, column=0, padx=5, pady=5)
+    user_col2_combobox.grid(row=1, column=1, padx=5, pady=5)
+    user_graph_button.grid(row=1, column=2, padx=5, pady=5)
 
     final_label.configure(text="Готово!", bootstyle="success")
 
 
+def read_config(filename):
+    config = configparser.ConfigParser()
+    config.read(filename)
+    return config
+
+
+def change_theme(theme):
+    style.theme_use(theme)
+
+
+config = read_config('config.ini')
 root = Tk()
-root.geometry("800x500")
+root.geometry(config.get('Window', 'size'))
+style = Style(theme=config.get('Interface', 'theme'))
 root.title("Сбор и анализ данных с hh.ru")
 
-style = Style(theme='solar')
-
-head_label = ttk.Label(root, text="Сбор и анализ данных с hh.ru", font=("Arial", 30))
+head_label = ttk.Label(root, text="Сбор и анализ данных с hh.ru", bootstyle="primary", font=("Arial", 30))
 head_label.pack(pady=30)
 
 query_frame = ttk.Frame(root)
 query_frame.pack(pady=10, padx=10, fill="x")
-query_label = ttk.Label(query_frame, text="Запрос:", font=("Arial", 14))
+query_label = ttk.Label(query_frame, text="Запрос:", bootstyle="secondary", font=("Arial", 14))
 query_label.pack(side=LEFT, padx=5)
 query_entry = ttk.Entry(query_frame, font=("Arial", 14))
 query_entry.pack(side=LEFT, fill="x", expand=True, padx=5)
 
 city_frame = ttk.Frame(root)
 city_frame.pack(pady=10, padx=10, fill="x")
-city_label = ttk.Label(city_frame, text="Город:", font=("Arial", 14))
+city_label = ttk.Label(city_frame, text="Город:", bootstyle="secondary", font=("Arial", 14))
 city_label.pack(side=LEFT, padx=5)
 city_entry = ttk.Entry(city_frame, font=("Arial", 14))
 city_entry.pack(side=LEFT, fill="x", expand=True, padx=5)
@@ -60,20 +78,34 @@ search_button = ttk.Button(root, text="Поиск", command=search, style='prima
 search_button.pack(pady=20)
 
 final_label = ttk.Label(root, text="", font=("Arial", 14))
-final_label.pack(pady=20)
+final_label.pack(pady=10)
 
-# Фрейм для размещения кнопок
+# Кнопки для отрисовки графиков
 buttons_frame = ttk.Frame(root)
-buttons_frame.pack(pady=20)
-
+buttons_frame.pack(pady=10)
 salary_vs_vacancies_button = ttk.Button(buttons_frame, text="Зарплата")
 experience_vs_vacancies_button = ttk.Button(buttons_frame, text="Опыт")
 employment_type_vs_vacancies_button = ttk.Button(buttons_frame, text="Тип занятости")
 requirements_vs_vacancies_button = ttk.Button(buttons_frame, text="Требования")
 level_vs_vacancies_button = ttk.Button(buttons_frame, text="Уровень")
 specialty_vs_vacancies_button = ttk.Button(buttons_frame, text="Специальность")
+buttons_frame.place(relx=0.5, rely=0.68, anchor=CENTER)
 
-# Центрирование фрейма с кнопками
-buttons_frame.place(relx=0.5, rely=0.8, anchor=CENTER)
+# Виджеты для пользовательских графиков
+user_graph_frame = ttk.Frame(root)
+user_graph_frame.pack(pady=10)
+user_graph_label = ttk.Label(user_graph_frame, text="Пользовательские графики", bootstyle="secondary", font=("Arial", 14))
+user_col1_combobox = ttk.Combobox(user_graph_frame, values=["1", "2", "3"])
+user_col2_combobox = ttk.Combobox(user_graph_frame, values=["1", "2", "3"])
+user_graph_button = ttk.Button(user_graph_frame, text="Построить")
+user_graph_frame.place(relx=0.5, rely=0.8, anchor=CENTER)
+
+# Кнопки для изменения стиля интерфейса
+theme_buttons_frame = ttk.Frame(root)
+theme_buttons_frame.pack(side=BOTTOM, padx=10, pady=10, anchor=SW)
+theme1_button = ttk.Button(theme_buttons_frame, text="Darkly", command=lambda: change_theme('darkly')).pack(side=LEFT, padx=5)
+theme2_button = ttk.Button(theme_buttons_frame, text="Yeti", command=lambda: change_theme('yeti')).pack(side=LEFT, padx=5)
+theme3_button = ttk.Button(theme_buttons_frame, text="Solar", command=lambda: change_theme('solar')).pack(side=LEFT, padx=5)
+theme4_button = ttk.Button(theme_buttons_frame, text="Superhero", command=lambda: change_theme('superhero')).pack(side=LEFT, padx=5)
 
 root.mainloop()
