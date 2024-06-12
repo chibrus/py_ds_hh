@@ -6,6 +6,7 @@ import library.parser
 import library.graph_generator
 import library.user_graph
 import library.text_report_generator
+from scripts.config import *
 
 
 def search():
@@ -66,37 +67,6 @@ def pars(query, city):
     text_report3_button.configure(command=library.text_report_generator.generate_statistical_report)
 
     final_label.configure(text="Готово!", bootstyle="success")
-
-
-def read_config(filename):
-    config = configparser.ConfigParser()
-    config.read(filename)
-    return config
-
-
-def change_theme(theme):
-    style.theme_use(theme)
-    root.update_idletasks()  # обновить интерфейс
-    root.update()
-
-
-def change_font(size: int, family: str):
-    font = (family, size)
-    head_label.configure(font = (family, size + 16))
-    query_label.configure(font=font)
-    query_entry.configure(font=font)
-    city_label.configure(font=font)
-    city_entry.configure(font=font)
-    final_label.configure(font=font)
-    user_graph_label.configure(font=font)
-    user_col1_combobox.configure(font=font)
-    user_col2_combobox.configure(font=font)
-    user_type_combobox.configure(font=font)
-    text_report_label.configure(font=font)
-    root.update_idletasks()
-    root.update()
-    root.update_idletasks()
-    root.update()
 
 
 config = read_config('scripts/config.ini')
@@ -179,33 +149,37 @@ theme_buttons_frame = ttk.Frame(root)
 theme_buttons_frame.pack(side=BOTTOM, padx=10, pady=10, fill="x")
 theme1_button = ttk.Button(
     theme_buttons_frame, text="Darkly",
-    command=lambda: change_theme('darkly')
+    command=lambda: change_theme(root, style, 'darkly')
 )
 theme1_button.pack(side=LEFT, padx=5)
 theme2_button = ttk.Button(
     theme_buttons_frame, text="Yeti",
-    command=lambda: change_theme('yeti')
+    command=lambda: change_theme(root, style, 'yeti')
 )
 theme2_button.pack(side=LEFT, padx=5)
 theme3_button = ttk.Button(
     theme_buttons_frame, text="Solar",
-    command=lambda: change_theme('solar')
+    command=lambda: change_theme(root, style, 'solar')
 )
 theme3_button.pack(side=LEFT, padx=5)
 theme4_button = ttk.Button(
     theme_buttons_frame, text="Superhero",
-    command=lambda: change_theme('superhero')
+    command=lambda: change_theme(root, style, 'superhero')
 )
 theme4_button.pack(side=LEFT, padx=5)
 
 font1_button = ttk.Button(
     theme_buttons_frame, text="Arial",
-    command=lambda: change_font(14, "Arial")
+    command=lambda: change_font(root, 14, "Arial", head_label, query_label, query_entry, city_label, city_entry,
+        final_label, user_graph_label, user_col1_combobox, user_col2_combobox, user_type_combobox,
+        text_report_label)
 )
 font1_button.pack(side=RIGHT, padx=5)
 font2_button = ttk.Button(
     theme_buttons_frame, text="Times New Roman",
-    command=lambda: change_font(14, "Times New Roman")
+    command=lambda: change_font(root, 14, "Times New Roman", head_label, query_label, query_entry, city_label, city_entry,
+        final_label, user_graph_label, user_col1_combobox, user_col2_combobox, user_type_combobox,
+        text_report_label)
 )
 font2_button.pack(side=RIGHT, padx=5)
 
