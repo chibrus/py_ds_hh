@@ -3,6 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
+
 # Создание директории для сохранения графиков, если её нет
 output_dir = os.path.join(os.path.dirname(__file__), '..', 'graphics')
 if not os.path.exists(output_dir):
@@ -119,8 +120,7 @@ def main(col1, col2, plot_type):
 
 
 if __name__ == "__main__":
-    main()
-
-
-
-
+    col1 = "Зарплата"
+    col2 = "Опыт работы"
+    type = "clustered_bar"
+    main(col1, col2, type)

@@ -36,16 +36,25 @@ def excel_generator(ws, data, query_city):
 
             name = title.lower()
             # grades
-            if "junior" in name: gradesG[0] += 1
-            elif "middle" in name: gradesG[1] += 1
-            elif "senior" in name: gradesG[2] += 1
-            else: gradesG[3] += 1
+            if "junior" in name:
+                gradesG[0] += 1
+            elif "middle" in name:
+                gradesG[1] += 1
+            elif "senior" in name:
+                gradesG[2] += 1
+            else:
+                gradesG[3] += 1
             # posts
-            if "android" in name or "ios" in name or "мобильный" in name: postsG[4] += 1
-            elif "backend" in name or "разработчик" in name or "developer" or "программист" in name: postsG[0] += 1
-            elif "frontend" in name: postsG[1] += 1
-            if "QA" in name or "тестировщик" in name: postsG[2] += 1
-            if "analyst" in name or "аналитик" in name: postsG[3] += 1
+            if "android" in name or "ios" in name or "мобильный" in name:
+                postsG[4] += 1
+            elif "backend" in name or "разработчик" in name or "developer" or "программист" in name:
+                postsG[0] += 1
+            elif "frontend" in name:
+                postsG[1] += 1
+            if "QA" in name or "тестировщик" in name:
+                postsG[2] += 1
+            if "analyst" in name or "аналитик" in name:
+                postsG[3] += 1
 
 
 def main(query, query_city):
