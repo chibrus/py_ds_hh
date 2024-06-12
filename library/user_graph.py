@@ -11,6 +11,20 @@ if not os.path.exists(output_dir):
 
 
 def plot_clustered_bar(df, col1, col2):
+    """
+    Построение кластеризованной столбчатой диаграммы.
+
+    Входные данные:
+    df (DataFrame): База данных.
+    col1 (str): Название столбца для оси x.
+    col2 (str): Название столбца для оси y.
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван
+    """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
     ax = sns.barplot(data=df, x=col1, y=col2, palette='husl', alpha=0.8,
@@ -40,6 +54,20 @@ def plot_clustered_bar(df, col1, col2):
 
 
 def plot_categorized_histogram(df, col1, col2):
+    """
+    Построение категоризированной гистограммы.
+
+    Входные данные:
+    df (DataFrame): База данных.
+    col1 (str): Название столбца для оси y.
+    col2 (str): Название столбца для оси x.
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван
+    """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
     ax = sns.histplot(data=df, y=col1, x=col2, multiple='stack', alpha=0.8)
@@ -59,6 +87,20 @@ def plot_categorized_histogram(df, col1, col2):
 
 
 def plot_categorized_boxplot(df, col1, col2):
+    """
+    Построение категоризированной диаграммы Бокса-Вискера.
+
+    Входные данные:
+    df (DataFrame): База данных.
+    col1 (str): Название столбца для оси y.
+    сol2 (str): Название столбца для оси x.
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван 
+    """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
     ax = sns.boxplot(data=df, x=col2, y=col1, palette='pastel', linewidth=2.5,
@@ -82,6 +124,20 @@ def plot_categorized_boxplot(df, col1, col2):
 
 
 def plot_categorized_scatter(df, col1, col2):
+    """
+    Построение категоризированной диаграммы рассеивания.
+
+    Входные даннные:
+    df (DataFrame): База данных.
+    col1 (str): Название столбца для оси x.
+    col2 (str): Название столбца для категоризации данных.
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван
+    """
     # Аггрегирование данных для подсчета количества вакансий
     agg_df = df.groupby([col1, col2]).size().reset_index(name='Количество вакансий')
 
@@ -105,6 +161,20 @@ def plot_categorized_scatter(df, col1, col2):
 
 
 def main(col1, col2, plot_type):
+    """
+    Основная функция для построения графиков в зависимости от выбранного типа.
+
+    Входные данные:
+    col1 (str): Название столбца для оси x.
+    col2 (str): Название столбца для оси y или категоризации данных.
+    plot_type (str): Тип графика для построения.
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван
+    """
     if col1 != col2:
         # Путь к файлу данных
         file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')

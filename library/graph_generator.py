@@ -9,6 +9,19 @@ output_dir = os.path.join(os.path.dirname(__file__), '..', 'graphics')
 
 
 def create_salary_vs_vacancies_plot(df):
+    """
+    Создает график зависимости количества вакансий от зарплаты.
+
+    Входные данные:
+    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях. Ожидается наличие столбца 'Зарплата'.
+
+    Выходные данные:
+    Создается и сохраняется график в файле 'salary_vs_vacancies.png' в директории output.
+    График также отображается на экране.
+
+    Автор:
+    Елисеев Иван
+    """
     # Преобразование данных по зарплате в числовой формат
     df['Зарплата'] = pd.to_numeric(df['Зарплата'], errors='coerce')
     df.dropna(subset=['Зарплата'], inplace=True)
@@ -36,6 +49,19 @@ def create_salary_vs_vacancies_plot(df):
 
 
 def create_experience_vs_vacancies_plot(df):
+    """
+    Создает график распределения количества вакансий по опыту работы.
+
+    Входные данные:
+    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях. Ожидается наличие столбца 'Опыт работы'.
+
+    Выходные данные:
+    Создается и сохраняется график в файле 'experience_vs_vacancies.png' в директории output.
+    График отображается на экране.
+
+    Автор:
+    Елисеев Иван
+    """
     experience_counts = df['Опыт работы'].value_counts().reset_index()
     experience_counts.columns = ['Опыт работы', 'Количество вакансий']
 
@@ -57,6 +83,19 @@ def create_experience_vs_vacancies_plot(df):
 
 
 def create_employment_type_vs_vacancies_plot(df):
+    """
+    Создает график распределения количества вакансий по типу занятости.
+
+    Входные данные:
+    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях. Ожидается наличие столбца 'Тип занятости'.
+
+    Выходные данные:
+    Создается и сохраняется график в файле 'employment_type_vs_vacancies.png' в директории output.
+    График отображается на экране.
+
+    Автор:
+    Елисеев Иван
+    """
     employment_counts = df['Тип занятости'].value_counts().reset_index()
     employment_counts.columns = ['Тип занятости', 'Количество вакансий']
 
@@ -78,6 +117,18 @@ def create_employment_type_vs_vacancies_plot(df):
 
 
 def stack(query):
+    """
+    Возвращает стек технологий в зависимости от запроса.
+
+    Входные данные:
+    query (str): Запрос, который может содержать ключевые слова, указывающие на технологии.
+
+    Выходные данные:
+    list: Список технологий, соответствующих запросу.
+
+    Автор:
+    Елисеев Иван
+    """
     if "python" in query:
         return ['SQL', 'Django', 'Linux', 'Shell', 'Git', 'Flask', 'API', 'Docker']
     elif "c++" in query:
@@ -105,6 +156,17 @@ def stack(query):
 
 
 def create_requirements_vs_vacancies_plot(df, query):
+    """
+    Создает график распределения количества вакансий по требованиям.
+
+    Входные данные:
+    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях. Ожидается наличие столбца 'Требования'.
+    query (str): Запрос, определяющий стек технологий для анализа.
+
+    Выходные данные:
+    Создается и сохраняется график в файле 'requirements_vs_vacancies.png' в директории output.
+    График отображается на экране.
+    """
     keywords = stack(query)
     requirements_counts = {keyword: df['Требования'].str.contains(keyword, case=False, na=False).sum() for keyword in
                            keywords}
@@ -128,6 +190,19 @@ def create_requirements_vs_vacancies_plot(df, query):
 
 
 def create_level_vs_vacancies_plot(level_counts):
+    """
+    Создает график распределения количества вакансий по уровням.
+
+    Входные данные:
+    level_counts (dict): Словарь, содержащий количество вакансий для каждого уровня.
+
+    Выходные данные:
+    Создается и сохраняется график в файле 'level_vs_vacancies.png' в директории output.
+    График отображается на экране.
+
+    Автор:
+    Елисеев Иван
+    """
     levels = ['Junior-разработчик', 'Middle-разработчик', 'Senior-разработчик', 'Не указано']
     level_data = pd.DataFrame({'Уровень': levels, 'Количество вакансий': level_counts})
 
@@ -149,6 +224,19 @@ def create_level_vs_vacancies_plot(level_counts):
 
 
 def create_specialty_vs_vacancies_plot(specialty_counts):
+    """
+    Создает график распределения количества вакансий по специальностям.
+
+    Входные данные:
+    specialty_counts (dict): Словарь, содержащий количество вакансий для каждой специальности.
+
+    Выходные данные:
+    Создается и сохраняется график в файле 'specialty_vs_vacancies.png' в директории output.
+    График отображается на экране.
+
+    Автор:
+    Елисеев Иван
+    """
     specialties = ['Backend-разработчик', 'Frontend-разработчик', 'QA-инженер', 'Аналитик', 'Mobile-разработчик']
     specialty_data = pd.DataFrame({'Специальность': specialties, 'Количество вакансий': specialty_counts})
 
@@ -170,6 +258,14 @@ def create_specialty_vs_vacancies_plot(specialty_counts):
 
 
 def main():
+    """
+    Основная функция для анализа данных о вакансиях.
+
+    Возвращает DataFrame, содержащий данные о вакансиях из файла 'data.xlsx'.
+
+    Автор:
+    Елисеев Иван
+    """
     # Чтение данных из файла Excel
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)

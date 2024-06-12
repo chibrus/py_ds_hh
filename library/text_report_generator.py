@@ -6,6 +6,18 @@ import subprocess
 
 
 def generate_vacancy_reports():
+    """
+    Генерирует текстовые отчеты о вакансиях на основе данных из файла Excel.
+
+    Входные данные:
+    Нет входных данных
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван
+    """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
     os.makedirs(os.path.join(os.path.dirname(__file__), '..', 'output'), exist_ok=True)
@@ -38,6 +50,19 @@ def generate_vacancy_reports():
 
 
 def generate_pivot_table_report():
+    """
+    Генерирует отчет в формате сводной таблицы на основе данных из файла Excel.
+    Читает данные из файла Excel, создает сводную таблицу и сохраняет её в текстовый файл.
+
+    Входные данные: 
+    Нет входных данных
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван
+    """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
     os.makedirs(os.path.join(os.path.dirname(__file__), '..', 'output'), exist_ok=True)
@@ -71,6 +96,19 @@ def generate_pivot_table_report():
 
 
 def generate_statistical_report():
+    """
+    Генерирует статистический отчет на основе данных из файла Excel.
+    Читает данные из файла Excel, вычисляет статистику и сохраняет её в текстовый файл.
+
+    Входные данные:
+    Нет входных данных
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван
+    """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
     os.makedirs(os.path.join(os.path.dirname(__file__), '..', 'output'), exist_ok=True)
@@ -111,6 +149,19 @@ def generate_statistical_report():
 
 
 def open_file(output_file: str):
+    """
+    Открывает указанный файл в текстовом редакторе операционной системы.
+    Открывает файл, который указан в output_file, в текстовом редакторе операционной системы.
+
+    Входные данные:
+    Нет входных данных
+
+    Выходные данные:
+    Нет выходных данных
+
+    Автор:
+    Елисеев Иван
+    """
     # Проверяем операционную систему
     if sys.platform.startswith('win'):
         # Для Windows
