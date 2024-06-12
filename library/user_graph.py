@@ -102,21 +102,22 @@ def plot_categorized_scatter(df, col1, col2):
 
 
 def main(col1, col2, plot_type):
-    # Путь к файлу данных
-    file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
+    if col1 != col2:
+        # Путь к файлу данных
+        file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
 
-    # Загрузка данных
-    df = pd.read_excel(file_path)
+        # Загрузка данных
+        df = pd.read_excel(file_path)
 
-    # Построение графиков в зависимости от типа
-    if plot_type == 'clustered_bar':
-        plot_clustered_bar(df, col1, col2)
-    elif plot_type == 'categorized_histogram':
-        plot_categorized_histogram(df, col1, col2)
-    elif plot_type == 'categorized_boxplot':
-        plot_categorized_boxplot(df, col1, col2)
-    elif plot_type == 'categorized_scatter':
-        plot_categorized_scatter(df, col1, col2)
+        # Построение графиков в зависимости от типа
+        if plot_type == 'clustered_bar':
+            plot_clustered_bar(df, col1, col2)
+        elif plot_type == 'categorized_histogram':
+            plot_categorized_histogram(df, col1, col2)
+        elif plot_type == 'categorized_boxplot':
+            plot_categorized_boxplot(df, col1, col2)
+        elif plot_type == 'categorized_scatter':
+            plot_categorized_scatter(df, col1, col2)
 
 
 if __name__ == "__main__":
