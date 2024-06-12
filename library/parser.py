@@ -27,7 +27,7 @@ def excel_generator(ws, data, query_city):
         experience = experience_data.get("name", "-") if experience_data else "-"
         requirements = vacancy["snippet"]["requirement"]
         employment_type = vacancy["employment"]["name"]
-        has_test = "Есть" if vacancy.get("has_test", False) else "-"
+        has_test = "Есть" if vacancy.get("has_test", False) else "Нет"
         schedule = vacancy.get("schedule", {}).get("name", "-")
 
         if query_city == city and salary != "-":
