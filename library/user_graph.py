@@ -42,8 +42,8 @@ def plot_clustered_bar(df, col1, col2):
 def plot_categorized_histogram(df, col1, col2):
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
-    ax = sns.histplot(data=df, y=col1, x=col2, multiple='stack', alpha=0.8)  # Используем яркие цвета и добавляем прозрачность
-    plt.title('Категоризированная гистограмма', fontsize=18, fontweight='bold', color='navy')  # Увеличиваем размер заголовка и делаем его жирным
+    ax = sns.histplot(data=df, y=col1, x=col2, multiple='stack', alpha=0.8)
+    plt.title('Категоризированная гистограмма', fontsize=18, fontweight='bold', color='navy')
     plt.xlabel(col1, fontsize=14, fontweight='bold', color='darkblue')  # Делаем подпись оси x жирной
     plt.ylabel(col2, fontsize=14, fontweight='bold', color='darkblue')  # Делаем подпись оси y жирной
     plt.xticks(fontsize=12, ha='right', color='gray')  # Поворачиваем и выравниваем подписи оси x
@@ -87,8 +87,11 @@ def plot_categorized_scatter(df, col1, col2):
 
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
-    ax = sns.scatterplot(data=agg_df, x=col1, y='Количество вакансий', hue=col2, s=150, palette='viridis', alpha=0.8, edgecolor='k', linewidth=1.5)  # Увеличиваем размер маркеров и добавляем прозрачность, также добавляем черные контуры маркерам
-    plt.title('Категоризированная диаграмма рассеивания', fontsize=22, fontweight='bold', color='navy')  # Увеличиваем размер заголовка и делаем его жирным
+    ax = sns.scatterplot(
+        data=agg_df, x=col1, y='Количество вакансий', hue=col2, s=150, palette='viridis', alpha=0.8, edgecolor='k',
+        linewidth=1.5
+    )
+    plt.title('Категоризированная диаграмма рассеивания', fontsize=22, fontweight='bold', color='navy')
     plt.xlabel(col1, fontsize=16, fontweight='bold', color='darkblue')  # Делаем подпись оси x жирной
     plt.ylabel('Количество вакансий', fontsize=16, fontweight='bold', color='darkblue')  # Делаем подпись оси y жирной
     plt.xticks(fontsize=14, color='gray')  # Делаем подписи оси x серыми

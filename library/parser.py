@@ -73,7 +73,8 @@ def main(query, query_city):
             data = get_data(query, page)
             excel_generator(ws, data, query_city)
             page += 1
-        except:
+        except Exception as e:
+            print(e)
             break
 
     data_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
