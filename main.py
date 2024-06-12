@@ -11,8 +11,6 @@ def search():
     root.update_idletasks()  # обновить интерфейс
     query = query_entry.get()
     city = city_entry.get()
-    query = "Python разработчик"
-    city = "Москва"
 
     library.parser.count = 0
     library.parser.gradesG = [0, 0, 0, 0]
@@ -103,9 +101,9 @@ user_graph_frame.place(relx=0.5, rely=0.8, anchor=CENTER)
 # Кнопки для изменения стиля интерфейса
 theme_buttons_frame = ttk.Frame(root)
 theme_buttons_frame.pack(side=BOTTOM, padx=10, pady=10, anchor=SW)
-theme1_button = ttk.Button(theme_buttons_frame, text="Darkly", command=lambda: change_theme("darkly")).pack(side=LEFT, padx=5)
-theme2_button = ttk.Button(theme_buttons_frame, text="Yeti", command=lambda: change_theme("yeti")).pack(side=LEFT, padx=5)
-theme3_button = ttk.Button(theme_buttons_frame, text="Solar", command=lambda: change_theme("solar")).pack(side=LEFT, padx=5)
-theme4_button = ttk.Button(theme_buttons_frame, text="Superhero", command=lambda: change_theme("superhero")).pack(side=LEFT, padx=5)
+theme1_button = ttk.Button(theme_buttons_frame, text="Darkly", command=lambda: change_theme('darkly')).pack(side=LEFT, padx=5)
+theme2_button = ttk.Button(theme_buttons_frame, text="Yeti", command=lambda: change_theme('yeti')).pack(side=LEFT, padx=5)
+theme3_button = ttk.Button(theme_buttons_frame, text="Solar", command=lambda: change_theme('solar')).pack(side=LEFT, padx=5)
+theme4_button = ttk.Button(theme_buttons_frame, text="Superhero", command=lambda: change_theme('superhero')).pack(side=LEFT, padx=5)
 
 root.mainloop()
