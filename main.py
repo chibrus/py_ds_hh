@@ -71,7 +71,7 @@ def change_theme(theme):
     root.update()
 
 
-config = read_config('config.ini')
+config = read_config('scripts/config.ini')
 
 root = Tk()
 root.geometry(config.get('Window', 'size'))
