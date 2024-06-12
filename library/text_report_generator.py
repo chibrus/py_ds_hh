@@ -1,109 +1,122 @@
 import pandas as pd
+from tabulate import tabulate
 import os
-
-df = pd.read_excel('./data/data.xlsx')
-
-# Создаем папку для сохранения отчетов
-output_folder = 'output'
-os.makedirs(output_folder, exist_ok=True)
-
-def vacancy_report(df: pd.DataFrame, city: str) -> pd.DataFrame:
-    """
-    Создает отчет о вакансиях для указанного города.
-
-    Parameters:
-    df (pd.DataFrame): DataFrame с данными о вакансиях.
-    city (str): Название города для отчета.
-
-    Returns:
-    pd.DataFrame: Отчет о вакансиях для указанного города.
-    """
-    
-    city_data = df[df['Город'] == city]
-    return city_data[['Название вакансии', 'Зарплата (руб)', 'Требуемый опыт работы']]
+import sys
+import subprocess
 
 
-def programming_language_report(df: pd.DataFrame, language: str) -> pd.DataFrame:
-    """
-    Создает отчет о вакансиях для указанного языка программирования.
+def generate_vacancy_reports():
+    file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
+    df = pd.read_excel(file_path)
+    os.makedirs(os.path.join(os.path.dirname(__file__), '..', 'output'), exist_ok=True)
+    output_file = os.path.join(os.path.dirname(__file__), '..', 'output', 'vacancies_report.txt')
+    reports = []
 
-    Parameters:
-    df (pd.DataFrame): DataFrame с данными о вакансиях.
-    language (str): Название языка программирования для отчета.
+    # Отчет по зарплате и работодателям
+    salary_employer_columns = ['Название вакансии', 'Зарплата', 'Название работодателя']
+    salary_employer_headers = ['Название вакансии', 'Зарплата', 'Название работодателя']
+    salary_employer_report = tabulate(df[salary_employer_columns], headers=salary_employer_headers, tablefmt="pretty")
+    reports.append("Отчет по зарплате и работодателям\n" + salary_employer_report)
 
-    Returns:
-    pd.DataFrame: Отчет о вакансиях для указанного языка программирования.
-    """
-    
-    language_data = df[df['Язык программирования'] == language]
-    return language_data[['Название вакансии', 'Зарплата (руб)', 'Требуемый опыт работы']]
+    # Отчет по опыту работы и типу занятости
+    experience_employment_columns = ['Название вакансии', 'Опыт работы', 'Тип занятости']
+    experience_employment_headers = ['Название вакансии', 'Опыт работы', 'Тип занятости']
+    experience_employment_report = tabulate(df[experience_employment_columns], headers=experience_employment_headers,
+                                            tablefmt="pretty")
+    reports.append("Отчет по опыту работы и типу занятости\n" + experience_employment_report)
 
+    # Отчет по наличию теста и графику работы
+    test_schedule_columns = ['Название вакансии', 'Наличие теста для кандидатов', 'График работы']
+    test_schedule_headers = ['Название вакансии', 'Наличие теста для кандидатов', 'График работы']
+    test_schedule_report = tabulate(df[test_schedule_columns], headers=test_schedule_headers, tablefmt="pretty")
+    reports.append("Отчет по наличию теста и графику работы\n" + test_schedule_report)
 
-def position_report(df: pd.DataFrame, position: str) -> pd.DataFrame:
-    """
-    Создает отчет о вакансиях для указанной должности.
-
-    Parameters:
-    df (pd.DataFrame): DataFrame с данными о вакансиях.
-    position (str): Название должности для отчета.
-
-    Returns:
-    pd.DataFrame: Отчет о вакансиях для указанной должности.
-    """
-    
-    position_data = df[df['Должности'] == position]
-    return position_data[['Название вакансии', 'Зарплата (руб)', 'Требуемый опыт работы']]
-
-
-def salary_range_report(df: pd.DataFrame, min_salary: int, max_salary: int) -> pd.DataFrame:
-    """
-    Создает отчет о вакансиях с зарплатой в указанном диапазоне.
-
-    Parameters:
-    df (pd.DataFrame): DataFrame с данными о вакансиях.
-    min_salary (int): Минимальная зарплата.
-    max_salary (int): Максимальная зарплата.
-
-    Returns:
-    pd.DataFrame: Отчет о вакансиях с зарплатой в указанном диапазоне.
-    """
-    
-    salary_data = df[(df['Зарплата (руб)'] >= min_salary) & (df['Зарплата (руб)'] <= max_salary)]
-    return salary_data[['Название вакансии', 'Зарплата (руб)', 'Требуемый опыт работы']]
+    # Объединение всех отчетов в один файл
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write("\n\n".join(reports))
+    open_file(output_file)
 
 
-def pivot_table_report(df: pd.DataFrame, index_column: str, columns_column: str, values_column: str) -> pd.DataFrame:
-    """
-    Создает сводную таблицу на основе указанных столбцов.
+def generate_pivot_table_report():
+    file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
+    df = pd.read_excel(file_path)
+    os.makedirs(os.path.join(os.path.dirname(__file__), '..', 'output'), exist_ok=True)
+    output_file = os.path.join(os.path.dirname(__file__), '..', 'output', 'pivot_table_report.txt')
+    agg_func = 'size'
+    attributes = [
+    ('Название работодателя', 'Тип занятости'),
+    ('График работы', 'Опыт работы'),
+    ('Название вакансии', 'График работы')
+    ]
+    report_lines = []
 
-    Parameters:
-    df (pd.DataFrame): DataFrame с данными.
-    index_column (str): Имя столбца, который будет использоваться в качестве индекса.
-    columns_column (str): Имя столбца, который будет использоваться в качестве столбцов.
-    values_column (str): Имя столбца, значения которого будут агрегированы.
+    for row_attr, col_attr in attributes:
+        if row_attr not in df.columns or col_attr not in df.columns:
+            raise ValueError(f"Столбцы '{row_attr}' и/или '{col_attr}' не найдены в таблице.")
 
-    Returns:
-    pd.DataFrame: Сводная таблица.
-    """
-    return pd.pivot_table(df, index=index_column, columns=columns_column, values=values_column, aggfunc='count')
+        if pd.api.types.is_numeric_dtype(df[row_attr]) or pd.api.types.is_numeric_dtype(df[col_attr]):
+            raise ValueError(f"Столбцы '{row_attr}' и '{col_attr}' должны быть качественными.")
+
+        pivot_table = pd.pivot_table(df, index=row_attr, columns=col_attr, aggfunc=agg_func, fill_value=0)
+        pivot_table = pivot_table.reset_index()
+
+        report_lines.append(f"Сводная таблица для '{row_attr}' и '{col_attr}':\n")
+        report_lines.append(tabulate(pivot_table, headers='keys', tablefmt="pretty"))
+        report_lines.append("\n")
+
+    # Сохранение отчета в файл
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write("\n".join(report_lines))
+    open_file(output_file)
 
 
-# Создаем отчет о вакансиях в Москве
-moscow_vacancies = vacancy_report(df, 'Москва')
-moscow_vacancies.to_markdown(os.path.join(output_folder, 'moscow_vacancies.md'), index=False)
+def generate_statistical_report():
+    file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
+    df = pd.read_excel(file_path)
+    os.makedirs(os.path.join(os.path.dirname(__file__), '..', 'output'), exist_ok=True)
+    output_file = os.path.join(os.path.dirname(__file__), '..', 'output', 'statistical_report.txt')
+    columns = ['Зарплата', 'Опыт работы', 'Тип занятости',
+               'Наличие теста для кандидатов', 'График работы']
+    report_lines = []
 
-# Создаем отчет о вакансиях для стажеров
-developer_vacancies = position_report(df, 'Стажер')
-developer_vacancies.to_markdown(os.path.join(output_folder, 'developer_vacancies.md'), index=False)
+    # Для количественных переменных
+    quantitative_columns = df[columns].select_dtypes(include=['number']).columns.tolist()
+    if quantitative_columns:
+        report_lines.append("Статистики для количественных переменных:\n")
+        stats = df[quantitative_columns].describe().T
+        stats['variance'] = df[quantitative_columns].var()
+        stats = stats[['min', 'max', 'mean', 'std', 'variance']]
+        report_lines.append(
+            tabulate(stats, headers=['Переменная', 'Мин', 'Макс', 'Среднее', 'Ст. отклонение', 'Дисперсия'],
+                     tablefmt="pretty"))
+        report_lines.append("\n")
 
-# Создаем отчеты о вакансиях с зарплатой от 50000 до 80000 рублей
-salary_range = salary_range_report(df, 50000, 80000)
-salary_range.to_markdown(os.path.join(output_folder, 'salary_range_report.md'), index=False)
+    # Для качественных переменных
+    qualitative_columns = df[columns].select_dtypes(exclude=['number']).columns.tolist()
+    if qualitative_columns:
+        report_lines.append("Таблица частот для качественных переменных:\n")
+        for column in qualitative_columns:
+            report_lines.append(f"Переменная: {column}\n")
+            freq_table = df[column].value_counts().reset_index()
+            freq_table.columns = [column, 'Частота']
+            freq_table['Процент'] = (freq_table['Частота'] / freq_table['Частота'].sum()) * 100
+            freq_table['Процент'] = freq_table['Процент'].apply(lambda x: f"{x:.2f}%")
+            report_lines.append(tabulate(freq_table, headers=[column, 'Частота', 'Процент'], tablefmt="pretty"))
+            report_lines.append("\n")
 
-# Создаем отчет о вакансиях для языка программирования Python
-python_vacancies = programming_language_report(df, 'Python')
-python_vacancies.to_markdown(os.path.join(output_folder, 'python_vacancies.md'), index=False)
+    # Сохранение отчета в файл
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write("\n".join(report_lines))
+    open_file(output_file)
 
-# Создаем сводную таблицу по городам и компаниям
-pivot_table = pivot_table_report(df, 'Город', 'Компания', 'Название вакансии')
-pivot_table.to_markdown(os.path.join(output_folder, 'pivot_table_report.md'))
+
+def open_file(output_file: str):
+    # Проверяем операционную систему
+    if sys.platform.startswith('win'):
+        # Для Windows
+        subprocess.Popen(['notepad.exe', output_file])
+    elif sys.platform.startswith('darwin'):
+        # Для MacOS
+        subprocess.Popen(['open', output_file])
+    else:
+        print("Открытие файла не поддерживается на данной операционной системе.")

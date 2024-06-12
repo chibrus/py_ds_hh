@@ -1,10 +1,11 @@
 import configparser
-from tkinter import Tk, LEFT, CENTER, BOTTOM, SW
+from tkinter import Tk, LEFT, RIGHT, BOTTOM
 from ttkbootstrap import Style
 from tkinter import ttk
 import library.parser
 import library.graph_generator
 import library.user_graph
+import library.text_report_generator
 
 
 def search():
@@ -58,8 +59,11 @@ def pars(query, city):
 
     text_report_label.grid(row=0, column=0, columnspan=3, pady=5)
     text_report1_button.grid(row=1, column=0, padx=5, pady=5)
+    text_report1_button.configure(command=library.text_report_generator.generate_vacancy_reports)
     text_report2_button.grid(row=1, column=1, padx=5, pady=5)
+    text_report2_button.configure(command=library.text_report_generator.generate_pivot_table_report)
     text_report3_button.grid(row=1, column=2, padx=5, pady=5)
+    text_report3_button.configure(command=library.text_report_generator.generate_statistical_report)
 
     final_label.configure(text="Готово!", bootstyle="success")
 
@@ -76,12 +80,32 @@ def change_theme(theme):
     root.update()
 
 
+def change_font(size: int, family: str):
+    font = (family, size)
+    head_label.configure(font = (family, size + 16))
+    query_label.configure(font=font)
+    query_entry.configure(font=font)
+    city_label.configure(font=font)
+    city_entry.configure(font=font)
+    final_label.configure(font=font)
+    user_graph_label.configure(font=font)
+    user_col1_combobox.configure(font=font)
+    user_col2_combobox.configure(font=font)
+    user_type_combobox.configure(font=font)
+    text_report_label.configure(font=font)
+    root.update_idletasks()
+    root.update()
+    root.update_idletasks()
+    root.update()
+
+
 config = read_config('scripts/config.ini')
 
 root = Tk()
 root.geometry(config.get('Window', 'size'))
 style = Style(theme=config.get('Interface', 'theme'))
 root.title("Сбор и анализ данных с hh.ru")
+font = ("Arial", 14)
 
 head_label = ttk.Label(
     root, text="Сбор и анализ данных с hh.ru", bootstyle="primary", font=("Arial", 30)
@@ -91,23 +115,23 @@ head_label.pack(pady=30)
 # Фрейм для запроса
 query_frame = ttk.Frame(root)
 query_frame.pack(pady=10, padx=10, fill="x")
-query_label = ttk.Label(query_frame, text="Запрос:", bootstyle="primary", font=("Arial", 14))
+query_label = ttk.Label(query_frame, text="Запрос:", bootstyle="primary", font=font)
 query_label.pack(side=LEFT, padx=5)
-query_entry = ttk.Entry(query_frame, font=("Arial", 14))
+query_entry = ttk.Entry(query_frame, font=font)
 query_entry.pack(side=LEFT, fill="x", expand=True, padx=5)
 
 # Фрейм для города
 city_frame = ttk.Frame(root)
 city_frame.pack(pady=10, padx=10, fill="x")
-city_label = ttk.Label(city_frame, text="Город:", bootstyle="primary", font=("Arial", 14))
+city_label = ttk.Label(city_frame, text="Город:", bootstyle="primary", font=font)
 city_label.pack(side=LEFT, padx=5)
-city_entry = ttk.Entry(city_frame, font=("Arial", 14))
+city_entry = ttk.Entry(city_frame, font=font)
 city_entry.pack(side=LEFT, fill="x", expand=True, padx=5)
 
 search_button = ttk.Button(root, text="Поиск", command=search, style='primary.TButton')
 search_button.pack(pady=20)
 
-final_label = ttk.Label(root, text="", font=("Arial", 14))
+final_label = ttk.Label(root, text="", font=font)
 final_label.pack(pady=10)
 
 # Кнопки для отрисовки графиков
@@ -119,43 +143,40 @@ employment_type_vs_vacancies_button = ttk.Button(buttons_frame, text="Тип з�
 requirements_vs_vacancies_button = ttk.Button(buttons_frame, text="Требования")
 level_vs_vacancies_button = ttk.Button(buttons_frame, text="Уровень")
 specialty_vs_vacancies_button = ttk.Button(buttons_frame, text="Специальность")
-# buttons_frame.place(relx=0.5, rely=0.68, anchor=CENTER)
 
 # Виджеты для пользовательских графиков
 user_graph_frame = ttk.Frame(root)
 user_graph_frame.pack(pady=10)
 user_graph_label = ttk.Label(
-    user_graph_frame, text="Пользовательские графики", bootstyle="primary", font=("Arial", 14)
+    user_graph_frame, text="Пользовательские графики", bootstyle="primary", font=font
 )
 columns = [
     "Зарплата", "Опыт работы", "Тип занятости",
     "Наличие теста для кандидатов", "График работы"
 ]
-user_col1_combobox = ttk.Combobox(user_graph_frame, values=columns)
-user_col2_combobox = ttk.Combobox(user_graph_frame, values=columns)
+user_col1_combobox = ttk.Combobox(user_graph_frame, values=columns, font=font)
+user_col2_combobox = ttk.Combobox(user_graph_frame, values=columns, font=font)
 user_type_combobox = ttk.Combobox(
     user_graph_frame, values=[
         "clustered_bar", "categorized_histogram",
         "categorized_boxplot", "categorized_scatter"
-    ]
+    ], font=font
 )
 user_graph_button = ttk.Button(user_graph_frame, text="Построить")
-# user_graph_frame.place(relx=0.5, rely=0.8, anchor=CENTER)
 
 # Виджеты для текстовых отчётов
 text_report_frame = ttk.Frame(root)
 text_report_frame.pack(pady=10)
 text_report_label = ttk.Label(
-    text_report_frame, text="Текстовые отчёты", bootstyle="primary", font=("Arial", 14)
+    text_report_frame, text="Текстовые отчёты", bootstyle="primary", font=font
 )
-text_report1_button = ttk.Button(text_report_frame, text="Текстовый отчёт 1")
-text_report2_button = ttk.Button(text_report_frame, text="Текстовый отчёт 2")
-text_report3_button = ttk.Button(text_report_frame, text="Текстовый отчёт 3")
-# text_report_frame.place(relx=0.5, rely=0.9, anchor=CENTER)
+text_report1_button = ttk.Button(text_report_frame, text="Простой текстовый отчёт")
+text_report2_button = ttk.Button(text_report_frame, text="Сводная таблица")
+text_report3_button = ttk.Button(text_report_frame, text="Статистический отчёт")
 
 # Кнопки для изменения стиля интерфейса
 theme_buttons_frame = ttk.Frame(root)
-theme_buttons_frame.pack(side=BOTTOM, padx=10, pady=10, anchor=SW)
+theme_buttons_frame.pack(side=BOTTOM, padx=10, pady=10, fill="x")
 theme1_button = ttk.Button(
     theme_buttons_frame, text="Darkly",
     command=lambda: change_theme('darkly')
@@ -176,5 +197,17 @@ theme4_button = ttk.Button(
     command=lambda: change_theme('superhero')
 )
 theme4_button.pack(side=LEFT, padx=5)
+
+font1_button = ttk.Button(
+    theme_buttons_frame, text="Arial",
+    command=lambda: change_font(14, "Arial")
+)
+font1_button.pack(side=RIGHT, padx=5)
+font2_button = ttk.Button(
+    theme_buttons_frame, text="Times New Roman",
+    command=lambda: change_font(14, "Times New Roman")
+)
+font2_button.pack(side=RIGHT, padx=5)
+
 
 root.mainloop()
