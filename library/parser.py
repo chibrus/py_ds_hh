@@ -47,10 +47,10 @@ def excel_generator(ws, data, query_city):
             # posts
             if "android" in name or "ios" in name or "мобильный" in name:
                 postsG[4] += 1
-            elif "backend" in name or "разработчик" in name or "developer" or "программист" in name:
-                postsG[0] += 1
-            elif "frontend" in name:
+            if "frontend" in name:
                 postsG[1] += 1
+            elif "backend" in name or "разработчик" in name or "программист" in name or "developer" in name:
+                postsG[0] += 1
             if "QA" in name or "тестировщик" in name:
                 postsG[2] += 1
             if "analyst" in name or "аналитик" in name:

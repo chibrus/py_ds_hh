@@ -51,6 +51,8 @@ def read_config(filename):
 
 def change_theme(theme):
     style.theme_use(theme)
+    root.update_idletasks()  # Обновление интерфейса
+    root.update()
 
 
 config = read_config('scripts/config.ini')
