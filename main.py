@@ -35,7 +35,8 @@ def pars(query, city):
     user_graph_label.grid(row=0, column=0, columnspan=3, pady=5)
     user_col1_combobox.grid(row=1, column=0, padx=5, pady=5)
     user_col2_combobox.grid(row=1, column=1, padx=5, pady=5)
-    user_graph_button.grid(row=1, column=2, padx=5, pady=5)
+    user_type_combobox.grid(row=1, column=2, padx=5, pady=5)
+    user_graph_button.grid(row=1, column=3, padx=5, pady=5)
 
     final_label.configure(text="Готово!", bootstyle="success")
 
@@ -96,6 +97,7 @@ user_graph_frame.pack(pady=10)
 user_graph_label = ttk.Label(user_graph_frame, text="Пользовательские графики", bootstyle="primary", font=("Arial", 14))
 user_col1_combobox = ttk.Combobox(user_graph_frame, values=["1", "2", "3"])
 user_col2_combobox = ttk.Combobox(user_graph_frame, values=["1", "2", "3"])
+user_type_combobox = ttk.Combobox(user_graph_frame, values=["1", "2", "3"])
 user_graph_button = ttk.Button(user_graph_frame, text="Построить")
 user_graph_frame.place(relx=0.5, rely=0.8, anchor=CENTER)
 
