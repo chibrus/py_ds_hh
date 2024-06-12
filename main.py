@@ -8,10 +8,11 @@ import configparser
 
 def search():
     final_label.configure(text="Ваш запрос обрабатывается...", bootstyle="info")
-    root.update_idletasks()  # обновить интерфейс
-    query = query_entry.get()
-    city = city_entry.get()
+    # root.update_idletasks()  # обновить интерфейс
+    root.after(50, lambda: pars(query_entry.get(), city_entry.get()))
 
+
+def pars(query, city):
     library.parser.count = 0
     library.parser.gradesG = [0, 0, 0, 0]
     library.parser.postsG = [0, 0, 0, 0, 0]
