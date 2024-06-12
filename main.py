@@ -1,4 +1,11 @@
-import configparser
+"""
+Модуль для создания графического пользовательского интерфейса (GUI)
+для сбора и анализа данных с hh.ru.
+
+Автор:
+- Глинник Егор
+"""
+
 from tkinter import Tk, LEFT, RIGHT, BOTTOM
 from ttkbootstrap import Style
 from tkinter import ttk
@@ -10,12 +17,39 @@ from scripts.config import *
 
 
 def search():
+    """
+    Сообщает об обработке запроса, обновляет интерфейс и вызывает
+    функцию для сбора данных
+
+    Входные данные:
+    -
+
+    Выходные данные:
+    -
+    
+    Автор:
+    Глинник Егор
+    """    
     final_label.configure(text="Ваш запрос обрабатывается...", bootstyle="info")
     root.update_idletasks()  # обновить интерфейс
     root.after(50, lambda: pars(query_entry.get(), city_entry.get()))
 
 
 def pars(query, city):
+    """
+    Обрабатывает запрос пользователя, парсит данные о вакансиях и генерирует графики и текстовые отчеты.
+
+    Входные данные:
+    - query: Строка с запросом пользователя.
+    - city: Строка с названием города.
+
+    Выходные данные:
+    -
+
+    Автор:
+    - Глинник Егор
+    """
+    
     library.parser.count = 0
     library.parser.gradesG = [0, 0, 0, 0]
     library.parser.postsG = [0, 0, 0, 0, 0]
