@@ -8,7 +8,7 @@ import configparser
 
 def search():
     final_label.configure(text="Ваш запрос обрабатывается...", bootstyle="info")
-    # root.update_idletasks()  # обновить интерфейс
+    root.update_idletasks()  # обновить интерфейс
     root.after(50, lambda: pars(query_entry.get(), city_entry.get()))
 
 
