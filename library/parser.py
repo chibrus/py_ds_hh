@@ -27,9 +27,11 @@ def excel_generator(ws, data, query_city):
         experience = experience_data.get("name", "-") if experience_data else "-"
         requirements = vacancy["snippet"]["requirement"]
         employment_type = vacancy["employment"]["name"]
+        has_test = "Есть" if vacancy.get("has_test", False) else "-"
+        schedule = vacancy.get("schedule", {}).get("name", "-")
 
         if query_city == city and salary != "-":
-            ws.append([title, city, salary, employer_name, experience, requirements, employment_type])
+            ws.append([title, city, salary, employer_name, experience, requirements, employment_type, has_test, schedule])
             count += 1
 
             name = title.lower()
@@ -55,7 +57,7 @@ def main(query, query_city):
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.append(["Название вакансии", "Город", "Зарплата", "Название работодателя", "Опыт работы", "Требования",
-               "Тип занятости"])
+               "Тип занятости", "Наличие теста для кандидатов", "График работы"])
 
     while count < 100:
         try:
