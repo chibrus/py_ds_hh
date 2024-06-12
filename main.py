@@ -128,8 +128,8 @@ user_col1_combobox = ttk.Combobox(user_graph_frame, values=columns, font=font)
 user_col2_combobox = ttk.Combobox(user_graph_frame, values=columns, font=font)
 user_type_combobox = ttk.Combobox(
     user_graph_frame, values=[
-        "clustered_bar", "categorized_histogram",
-        "categorized_boxplot", "categorized_scatter"
+        "Столбчатая диаграмма", "Категоризированная гистограмма",
+        "Диаграмма Бокса-Вискера", "Диаграмма рассеивания"
     ], font=font
 )
 user_graph_button = ttk.Button(user_graph_frame, text="Построить")

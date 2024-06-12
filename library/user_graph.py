@@ -113,13 +113,13 @@ def main(col1, col2, plot_type):
         df = pd.read_excel(file_path)
 
         # Построение графиков в зависимости от типа
-        if plot_type == 'clustered_bar':
+        if plot_type == 'Столбчатая диаграмма':
             plot_clustered_bar(df, col1, col2)
-        elif plot_type == 'categorized_histogram':
+        elif plot_type == 'Категоризированная гистограмма':
             plot_categorized_histogram(df, col1, col2)
-        elif plot_type == 'categorized_boxplot':
+        elif plot_type == 'Диаграмма Бокса-Вискера':
             plot_categorized_boxplot(df, col1, col2)
-        elif plot_type == 'categorized_scatter':
+        elif plot_type == 'Диаграмма рассеивания':
             plot_categorized_scatter(df, col1, col2)
 
 
