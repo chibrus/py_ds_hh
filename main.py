@@ -53,7 +53,7 @@ def change_theme(theme):
     style.theme_use(theme)
 
 
-config = read_config('config.ini')
+config = read_config('scripts/config.ini')
 root = Tk()
 root.geometry(config.get('Window', 'size'))
 style = Style(theme=config.get('Interface', 'theme'))
