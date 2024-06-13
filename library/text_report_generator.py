@@ -160,7 +160,7 @@ def open_file(output_file: str):
     Нет выходных данных
 
     Автор:
-    Елисеев Иван
+    - Глинник Егор
     """
     # Проверяем операционную систему
     if sys.platform.startswith('win'):

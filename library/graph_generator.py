@@ -127,7 +127,7 @@ def stack(query):
     list: Список технологий, соответствующих запросу.
 
     Автор:
-    Елисеев Иван
+    - Глинник Егор
     """
     if "python" in query:
         return ['SQL', 'Django', 'Linux', 'Shell', 'Git', 'Flask', 'API', 'Docker']
