@@ -21,7 +21,7 @@
 import configparser
 
 
-def read_config(filename):
+def read_config(filename: str):
     """
     Считывает конфигурационный файл и возвращает объект ConfigParser.
 
@@ -39,7 +39,7 @@ def read_config(filename):
     return config
 
 
-def change_theme(root, style, theme):
+def change_theme(root, style, theme: str):
     """
     Изменяет тему интерфейса программы.
 
