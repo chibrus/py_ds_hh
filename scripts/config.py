@@ -10,15 +10,11 @@
 - change_font(root, size, family, head_label, query_label, query_entry, city_label, city_entry,
         final_label, user_graph_label, user_col1_combobox, user_col2_combobox, user_type_combobox,
         text_report_label): Изменяет шрифт для различных элементов интерфейса.
-
-Переменные:
-- filename: Строка с именем конфигурационного файла.
-
-Пример использования (если файл используется как скрипт):
-- filename: Строка с именем конфигурационного файла.
+- center_frame_content(frame): Центрирует содержимое фрейма.
 """
 
 import configparser
+from tkinter import CENTER
 
 
 def read_config(filename: str):
@@ -109,3 +105,17 @@ def change_font(
     root.update()
     root.update_idletasks()
     root.update()
+
+
+def center_frame_content(frame):
+    """
+    Центрирует содержимое фрейма.
+
+    Входные данные:
+    - frame: Фрейм для центрирования содержимого.
+
+    Выходные данные:
+    -
+    """
+    for widget in frame.winfo_children():
+        widget.pack_configure(anchor=CENTER)

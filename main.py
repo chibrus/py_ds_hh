@@ -6,7 +6,7 @@
 - Глинник Егор
 """
 
-from tkinter import Tk, LEFT, RIGHT, BOTTOM, CENTER
+from tkinter import Tk, LEFT, RIGHT, BOTTOM
 from ttkbootstrap import Style
 from tkinter import ttk
 import library.parser
@@ -56,60 +56,38 @@ def pars(query, city):
     grades, posts = library.parser.main(query, city)  # парсим
     df = library.graph_generator.main()
 
-
+    # Выдача команд для кнопок Графики
     salary_vs_vacancies_button.configure(
         command=lambda: library.graph_generator.create_salary_vs_vacancies_plot(df)
     )
-
     experience_vs_vacancies_button.configure(
         command=lambda: library.graph_generator.create_experience_vs_vacancies_plot(df)
     )
-
     employment_type_vs_vacancies_button.configure(
         command=lambda: library.graph_generator.create_employment_type_vs_vacancies_plot(df)
     )
-
     requirements_vs_vacancies_button.configure(
         command=lambda: library.graph_generator.create_requirements_vs_vacancies_plot(df, query.lower())
     )
-
     level_vs_vacancies_button.configure(
         command=lambda: library.graph_generator.create_level_vs_vacancies_plot(grades)
     )
-
     specialty_vs_vacancies_button.configure(
         command=lambda: library.graph_generator.create_specialty_vs_vacancies_plot(posts)
     )
 
-
+    # Выдача команд для кнопки Пользовательские графики
     user_graph_button.configure(
         command=lambda: library.user_graph.main(
             user_col1_combobox.get(), user_col2_combobox.get(), user_type_combobox.get()
         )
     )
 
-
+    # Выдача команд для кнопок Текстовые отчёты
     text_report1_button.configure(command=library.text_report_generator.generate_vacancy_reports)
-
     text_report2_button.configure(command=library.text_report_generator.generate_pivot_table_report)
-
     text_report3_button.configure(command=library.text_report_generator.generate_statistical_report)
-
     final_label.configure(text="Готово!", bootstyle="success")
-
-
-def center_frame_content(frame):
-    """
-    Центрирует содержимое фрейма.
-
-    Входные данные:
-    - frame: Фрейм для центрирования содержимого.
-
-    Выходные данные:
-    -
-    """
-    for widget in frame.winfo_children():
-        widget.pack_configure(anchor=CENTER)
 
 
 config = read_config('scripts/config.ini')
