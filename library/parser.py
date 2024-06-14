@@ -23,10 +23,9 @@ import requests
 import openpyxl
 import os
 
-
 count = 0
-gradesG = [0, 0, 0, 0]     # Junior, Middle, Senior
-postsG = [0, 0, 0, 0, 0]   # Backend, Frontend, QA, Аналитик, Mobile
+gradesG = [0, 0, 0, 0]  # Junior, Middle, Senior
+postsG = [0, 0, 0, 0, 0]  # Backend, Frontend, QA, Аналитик, Mobile
 
 
 def get_data(query, page):
@@ -65,6 +64,7 @@ def excel_generator(ws, data, query_city):
     global gradesG
     global postsG
     global count
+
     for vacancy in data["items"]:
         title = vacancy["name"]
         city = vacancy["area"]["name"]
@@ -97,15 +97,15 @@ def excel_generator(ws, data, query_city):
             else:
                 gradesG[3] += 1
             # posts
-            if "android" in name or "ios" in name or "мобильный" in name:
+            if any(keyword in name for keyword in ["android", "ios", "мобильный"]):
                 postsG[4] += 1
             if "frontend" in name:
                 postsG[1] += 1
-            elif "backend" in name or "разработчик" in name or "программист" in name or "developer" in name:
+            elif any(keyword in name for keyword in ["backend", "разработчик", "программист", "developer"]):
                 postsG[0] += 1
-            if "QA" in name or "тестировщик" in name:
+            if any(keyword in name for keyword in ["qa", "тестировщик"]):
                 postsG[2] += 1
-            if "analyst" in name or "аналитик" in name:
+            if any(keyword in name for keyword in ["analyst", "аналитик"]):
                 postsG[3] += 1
 
 
@@ -131,8 +131,10 @@ def main(query, query_city):
     page = 0
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.append(["Название вакансии", "Зарплата", "Название работодателя", "Опыт работы", "Требования",
-               "Тип занятости", "Наличие теста для кандидатов", "График работы", "ПК"])
+    ws.append([
+        "Название вакансии", "Зарплата", "Название работодателя", "Опыт работы", "Требования",
+        "Тип занятости", "Наличие теста для кандидатов", "График работы", "ПК"
+    ])
 
     while count < 100:
         try:

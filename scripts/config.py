@@ -14,7 +14,7 @@
 """
 
 import configparser
-from tkinter import CENTER
+from tkinter import Tk
 
 
 def read_config(filename: str):
@@ -56,9 +56,9 @@ def change_theme(root, style, theme: str):
 
 
 def change_font(
-        root, size: int, family: str, head_label, query_label, query_entry, city_label, city_entry,
-        final_label, graphs_label, user_graph_label, user_col1_combobox, user_col2_combobox, user_type_combobox,
-        text_report_label
+    root, size: int, family: str, head_label, query_label, query_entry, city_label, city_entry,
+    final_label, graphs_label, user_graph_label, user_col1_combobox, user_col2_combobox, user_type_combobox,
+    text_report_label
 ):
     """
     Изменяет шрифт для различных элементов интерфейса.
@@ -89,7 +89,7 @@ def change_font(
     Данная функция изменяет шрифт для указанных элементов и обновляет интерфейс.
     """
     font = (family, size)
-    head_label.configure(font = (family, size + 16))
+    head_label.configure(font=(family, size + 16))
     query_label.configure(font=font)
     query_entry.configure(font=font)
     city_label.configure(font=font)
