@@ -61,7 +61,7 @@ def change_theme(root, style, theme: str):
 
 def change_font(
         root, size: int, family: str, head_label, query_label, query_entry, city_label, city_entry,
-        final_label, user_graph_label, user_col1_combobox, user_col2_combobox, user_type_combobox,
+        final_label, graphs_label, user_graph_label, user_col1_combobox, user_col2_combobox, user_type_combobox,
         text_report_label
 ):
     """
@@ -99,6 +99,7 @@ def change_font(
     city_label.configure(font=font)
     city_entry.configure(font=font)
     final_label.configure(font=font)
+    graphs_label.configure(font=font)
     user_graph_label.configure(font=font)
     user_col1_combobox.configure(font=font)
     user_col2_combobox.configure(font=font)
