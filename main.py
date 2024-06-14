@@ -29,7 +29,7 @@ def search():
     
     Автор:
     Глинник Егор
-    """    
+    """
     final_label.configure(text="Ваш запрос обрабатывается...", bootstyle="info")
     root.update_idletasks()  # обновить интерфейс
     root.after(50, lambda: pars(query_entry.get(), city_entry.get()))
@@ -71,8 +71,9 @@ def pars(query, city):
         state=NORMAL
     )
     requirements_vs_vacancies_button.configure(
-        command=lambda: library.graph_generator.create_requirements_vs_vacancies_plot(df, query.lower()),
-        state=NORMAL
+        command=lambda: library.graph_generator.create_requirements_vs_vacancies_plot(
+            df, query.lower()
+        ), state=NORMAL
     )
     level_vs_vacancies_button.configure(
         command=lambda: library.graph_generator.create_level_vs_vacancies_plot(grades),
