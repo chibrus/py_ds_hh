@@ -105,17 +105,3 @@ def change_font(
     root.update()
     root.update_idletasks()
     root.update()
-
-
-def center_frame_content(frame):
-    """
-    Центрирует содержимое фрейма.
-
-    Входные данные:
-    - frame: Фрейм для центрирования содержимого.
-
-    Выходные данные:
-    -
-    """
-    for widget in frame.winfo_children():
-        widget.pack_configure(anchor=CENTER)

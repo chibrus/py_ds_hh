@@ -6,7 +6,7 @@
 - Глинник Егор
 """
 
-from tkinter import Tk, LEFT, RIGHT, BOTTOM
+from tkinter import Tk, LEFT, RIGHT, BOTTOM, NORMAL, DISABLED
 from ttkbootstrap import Style
 from tkinter import ttk
 import library.parser
@@ -37,7 +37,7 @@ def search():
 
 def pars(query, city):
     """
-    Обрабатывает запрос пользователя, парсит данные о вакансиях и генерирует графики и текстовые отчеты.
+    Обрабатывает запрос пользователя, вызывает функцию, собирающую данные о вакансиях. Включает кнопки.
 
     Входные данные:
     - query: Строка с запросом пользователя.
@@ -58,35 +58,43 @@ def pars(query, city):
 
     # Выдача команд для кнопок Графики
     salary_vs_vacancies_button.configure(
-        command=lambda: library.graph_generator.create_salary_vs_vacancies_plot(df)
+        command=lambda: library.graph_generator.create_salary_vs_vacancies_plot(df), state=NORMAL
     )
     experience_vs_vacancies_button.configure(
-        command=lambda: library.graph_generator.create_experience_vs_vacancies_plot(df)
+        command=lambda: library.graph_generator.create_experience_vs_vacancies_plot(df), state=NORMAL
     )
     employment_type_vs_vacancies_button.configure(
-        command=lambda: library.graph_generator.create_employment_type_vs_vacancies_plot(df)
+        command=lambda: library.graph_generator.create_employment_type_vs_vacancies_plot(df), state=NORMAL
     )
     requirements_vs_vacancies_button.configure(
-        command=lambda: library.graph_generator.create_requirements_vs_vacancies_plot(df, query.lower())
+        command=lambda: library.graph_generator.create_requirements_vs_vacancies_plot(df, query.lower()),
+        state=NORMAL
     )
     level_vs_vacancies_button.configure(
-        command=lambda: library.graph_generator.create_level_vs_vacancies_plot(grades)
+        command=lambda: library.graph_generator.create_level_vs_vacancies_plot(grades), state=NORMAL
     )
     specialty_vs_vacancies_button.configure(
-        command=lambda: library.graph_generator.create_specialty_vs_vacancies_plot(posts)
+        command=lambda: library.graph_generator.create_specialty_vs_vacancies_plot(posts), state=NORMAL
     )
 
     # Выдача команд для кнопки Пользовательские графики
     user_graph_button.configure(
         command=lambda: library.user_graph.main(
             user_col1_combobox.get(), user_col2_combobox.get(), user_type_combobox.get()
-        )
+        ), state=NORMAL
     )
 
     # Выдача команд для кнопок Текстовые отчёты
-    text_report1_button.configure(command=library.text_report_generator.generate_vacancy_reports)
-    text_report2_button.configure(command=library.text_report_generator.generate_pivot_table_report)
-    text_report3_button.configure(command=library.text_report_generator.generate_statistical_report)
+    text_report1_button.configure(
+        command=library.text_report_generator.generate_vacancy_reports, state=NORMAL
+    )
+    text_report2_button.configure(
+        command=library.text_report_generator.generate_pivot_table_report, state=NORMAL
+    )
+    text_report3_button.configure(
+        command=library.text_report_generator.generate_statistical_report, state=NORMAL
+    )
+
     final_label.configure(text="Готово!", bootstyle="success")
 
 
@@ -125,38 +133,34 @@ search_button.pack(pady=20)
 final_label = ttk.Label(root, text="", font=font)
 final_label.pack(pady=10)
 
-# Создаем виджет Notebook для вкладок
+# Виджет Notebook для вкладок
 notebook = ttk.Notebook(root)
 notebook.pack(pady=10, padx=10, fill="both", expand=True)
 
-# Создаем фрейм для графиков
+# Фрейм для графиков
 graphs_frame = ttk.Frame(notebook)
 notebook.add(graphs_frame, text="Графики")
 
-# Вставляем надпись "Графики"
 graphs_label = ttk.Label(graphs_frame, text="Графики", bootstyle="primary", font=font)
 graphs_label.pack(pady=10)
 
 buttons_frame = ttk.Frame(graphs_frame)
 buttons_frame.pack(pady=10)
-
-salary_vs_vacancies_button = ttk.Button(buttons_frame, text="Зарплата")
+salary_vs_vacancies_button = ttk.Button(buttons_frame, text="Зарплата", state=DISABLED)
 salary_vs_vacancies_button.pack(side=LEFT, padx=5, pady=5)
-experience_vs_vacancies_button = ttk.Button(buttons_frame, text="Опыт")
+experience_vs_vacancies_button = ttk.Button(buttons_frame, text="Опыт", state=DISABLED)
 experience_vs_vacancies_button.pack(side=LEFT, padx=5, pady=5)
-employment_type_vs_vacancies_button = ttk.Button(buttons_frame, text="Тип занятости")
+employment_type_vs_vacancies_button = ttk.Button(buttons_frame, text="Тип занятости", state=DISABLED)
 employment_type_vs_vacancies_button.pack(side=LEFT, padx=5, pady=5)
-requirements_vs_vacancies_button = ttk.Button(buttons_frame, text="Требования")
+requirements_vs_vacancies_button = ttk.Button(buttons_frame, text="Требования", state=DISABLED)
 requirements_vs_vacancies_button.pack(side=LEFT, padx=5, pady=5)
-level_vs_vacancies_button = ttk.Button(buttons_frame, text="Уровень")
+level_vs_vacancies_button = ttk.Button(buttons_frame, text="Уровень", state=DISABLED)
 level_vs_vacancies_button.pack(side=LEFT, padx=5, pady=5)
-specialty_vs_vacancies_button = ttk.Button(buttons_frame, text="Специальность")
+specialty_vs_vacancies_button = ttk.Button(buttons_frame, text="Специальность", state=DISABLED)
 specialty_vs_vacancies_button.pack(side=LEFT, padx=5, pady=5)
 
-# Центрируем содержимое вкладки графиков
-center_frame_content(graphs_frame)
 
-# Виджеты для пользовательских графиков
+# Фрейм пользовательских графиков
 user_graph_frame = ttk.Frame(notebook)
 notebook.add(user_graph_frame, text="Пользовательские графики")
 
@@ -167,7 +171,6 @@ user_graph_label.pack(pady=5)
 
 user_graph_combobox_frame = ttk.Frame(user_graph_frame)
 user_graph_combobox_frame.pack(pady=10)
-
 columns = [
     "Зарплата", "Опыт работы", "Тип занятости",
     "Наличие теста для кандидатов", "График работы"
@@ -183,10 +186,10 @@ user_type_combobox = ttk.Combobox(
     ], font=font
 )
 user_type_combobox.pack(side=LEFT, padx=5, pady=5)
-user_graph_button = ttk.Button(user_graph_combobox_frame, text="Построить")
+user_graph_button = ttk.Button(user_graph_combobox_frame, text="Построить", state=DISABLED)
 user_graph_button.pack(side=LEFT, padx=5, pady=5)
 
-# Виджеты для текстовых отчётов
+# Фрейм текстовых отчётов
 text_report_frame = ttk.Frame(notebook)
 notebook.add(text_report_frame, text="Текстовые отчёты")
 
@@ -197,16 +200,13 @@ text_report_label.pack(pady=5)
 
 text_report_buttons_frame = ttk.Frame(text_report_frame)
 text_report_buttons_frame.pack(pady=10)
-
-text_report1_button = ttk.Button(text_report_buttons_frame, text="Простой текстовый отчёт")
+text_report1_button = ttk.Button(text_report_buttons_frame, text="Простой текстовый отчёт", state=DISABLED)
 text_report1_button.pack(side=LEFT, padx=5, pady=5)
-text_report2_button = ttk.Button(text_report_buttons_frame, text="Сводная таблица")
+text_report2_button = ttk.Button(text_report_buttons_frame, text="Сводная таблица", state=DISABLED)
 text_report2_button.pack(side=LEFT, padx=5, pady=5)
-text_report3_button = ttk.Button(text_report_buttons_frame, text="Статистический отчёт")
+text_report3_button = ttk.Button(text_report_buttons_frame, text="Статистический отчёт", state=DISABLED)
 text_report3_button.pack(side=LEFT, padx=5, pady=5)
 
-# Центрируем содержимое вкладки текстовых отчётов
-center_frame_content(text_report_frame)
 
 # Кнопки для изменения стиля интерфейса
 theme_buttons_frame = ttk.Frame(root)
