@@ -67,7 +67,7 @@ def create_experience_vs_vacancies_plot(df):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Опыт работы', y='Количество вакансий', data=experience_counts, palette='viridis')
+    sns.barplot(x='Опыт работы', y='Количество вакансий', data=experience_counts, hue='Опыт работы', dodge=False, palette='viridis', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по опыту работы', fontsize=16)
@@ -101,7 +101,7 @@ def create_employment_type_vs_vacancies_plot(df):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Тип занятости', y='Количество вакансий', data=employment_counts, palette='plasma')
+    sns.barplot(x='Тип занятости', y='Количество вакансий', data=employment_counts, hue='Тип занятости', dodge=False, palette='plasma', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по типу занятости', fontsize=16)
@@ -174,7 +174,7 @@ def create_requirements_vs_vacancies_plot(df, query):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Требование', y='Количество вакансий', data=requirements_counts, palette='magma')
+    sns.barplot(x='Требование', y='Количество вакансий', data=requirements_counts, hue='Требование', dodge=False, palette='magma', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по требованиям', fontsize=16)
@@ -208,7 +208,7 @@ def create_level_vs_vacancies_plot(level_counts):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Уровень', y='Количество вакансий', data=level_data, palette='coolwarm')
+    sns.barplot(x='Уровень', y='Количество вакансий', data=level_data, hue='Уровень', dodge=False, palette='coolwarm', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по уровням', fontsize=16)
@@ -242,7 +242,7 @@ def create_specialty_vs_vacancies_plot(specialty_counts):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Специальность', y='Количество вакансий', data=specialty_data, palette='cubehelix')
+    sns.barplot(x='Специальность', y='Количество вакансий', data=specialty_data, hue='Специальность', dodge=False, palette='cubehelix', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по специальностям', fontsize=16)

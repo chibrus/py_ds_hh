@@ -27,8 +27,8 @@ def plot_clustered_bar(df, col1, col2):
     """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
-    ax = sns.barplot(data=df, x=col1, y=col2, palette='husl', alpha=0.8,
-                     ci=None)  # Используем яркие цвета и добавляем прозрачность
+    ax = sns.barplot(data=df, x=col1, y=col2, hue=col1, dodge=False, palette='husl', legend=False, alpha=0.8,
+                     errorbar=None)  # Используем яркие цвета и добавляем прозрачность
     plt.title('Кластеризованная столбчатая диаграмма', fontsize=18,
               fontweight='bold')  # Увеличиваем размер заголовка и делаем его жирным
     plt.xlabel(col1, fontsize=14, fontweight='bold')  # Делаем подпись оси x жирной
@@ -103,7 +103,7 @@ def plot_categorized_boxplot(df, col1, col2):
     """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
-    ax = sns.boxplot(data=df, x=col2, y=col1, palette='pastel', linewidth=2.5,
+    ax = sns.boxplot(data=df, x=col2, y=col1, hue=col1, dodge=False, palette='pastel', legend=False, linewidth=2.5,
                      width=0.8)  # Увеличиваем толщину линий и ширину коробок
     plt.title('Категоризированная диаграмма Бокса-Вискера', fontsize=22, fontweight='bold',
               color='navy')  # Увеличиваем размер заголовка и делаем его жирным
