@@ -1,18 +1,24 @@
 """
-Модуль для получения данных о вакансиях с сайта hh.ru, сохранения их в файл Excel и подсчета статистики.
+Модуль для получения данных о вакансиях с сайта hh.ru,
+сохранения их в файл Excel и подсчета статистики.
 
 Автор:
 - Глинник Егор
 
 Функции:
-- get_data(query, page): Отправляет запрос на сервер hh.ru и получает данные о вакансиях.
-- excel_generator(ws, data, query_city): Генерирует содержимое Excel-файла на основе полученных данных о вакансиях.
-- main(query, query_city): Основная функция, вызывает остальные функции для получения данных, генерации Excel и подсчета статистики.
+- get_data(query, page): Отправляет запрос на сервер hh.ru
+  и получает данные о вакансиях.
+- excel_generator(ws, data, query_city): Генерирует содержимое Excel-файла
+  на основе полученных данных о вакансиях.
+- main(query, query_city): Основная функция, вызывает остальные функции
+  для получения данных, генерации Excel и подсчета статистики.
 
 Переменные:
 - count: Счетчик количества обработанных вакансий.
-- gradesG: Список для подсчета количества вакансий по категориям (Junior, Middle, Senior).
-- postsG: Список для подсчета количества вакансий по должностям (Backend, Frontend, QA, Аналитик, Mobile).
+- gradesG: Список для подсчета количества вакансий
+  по категориям (Junior, Middle, Senior).
+- postsG: Список для подсчета количества вакансий
+  по должностям (Backend, Frontend, QA, Аналитик, Mobile).
 
 Пример использования (если файл используется как скрипт):
 - query: Строка с запросом для поиска вакансий.
@@ -42,7 +48,9 @@ def get_data(query, page):
     Автор:
     - Глинник Егор
     """
-    response = requests.get(f"https://api.hh.ru/vacancies?text={query}&page={page}&area=113")
+    response = requests.get(
+        f"https://api.hh.ru/vacancies?text={query}&page={page}&area=113"
+    )
     return response.json()
 
 
@@ -81,8 +89,8 @@ def excel_generator(ws, data, query_city):
 
         if query_city == city and salary != "-":
             ws.append([
-                title, salary, employer_name, experience, requirements, employment_type,
-                has_test, schedule, id
+                title, salary, employer_name, experience,
+                requirements, employment_type, has_test, schedule, id
             ])
             count += 1
 
@@ -101,7 +109,9 @@ def excel_generator(ws, data, query_city):
                 postsG[4] += 1
             if "frontend" in name:
                 postsG[1] += 1
-            elif any(keyword in name for keyword in ["backend", "разработчик", "программист", "developer"]):
+            elif any(keyword in name for keyword in [
+                "backend", "разработчик", "программист", "developer"
+            ]):
                 postsG[0] += 1
             if any(keyword in name for keyword in ["qa", "тестировщик"]):
                 postsG[2] += 1
@@ -111,15 +121,18 @@ def excel_generator(ws, data, query_city):
 
 def main(query, query_city):
     """
-    Основная функция, вызывает остальные функции для получения данных, генерации Excel и подсчета статистики.
+    Основная функция, вызывает остальные функции для получения данных,
+    генерации Excel и подсчета статистики.
 
     Входные данные:
     - query: Строка с запросом для поиска вакансий.
     - query_city: Строка с названием города для фильтрации вакансий.
 
     Выходные данные:
-    - gradesG: Список с количеством вакансий по категориям (Junior, Middle, Senior).
-    - postsG: Список с количеством вакансий по должностям (Backend, Frontend, QA, Аналитик, Mobile).
+    - gradesG: Список с количеством вакансий
+      по категориям (Junior, Middle, Senior).
+    - postsG: Список с количеством вакансий
+      по должностям (Backend, Frontend, QA, Аналитик, Mobile).
 
     Автор:
     - Глинник Егор
@@ -132,8 +145,9 @@ def main(query, query_city):
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.append([
-        "Название вакансии", "Зарплата", "Название работодателя", "Опыт работы", "Требования",
-        "Тип занятости", "Наличие теста для кандидатов", "График работы", "ПК"
+        "Название вакансии", "Зарплата", "Название работодателя", "Опыт работы",
+        "Требования", "Тип занятости", "Наличие теста для кандидатов",
+        "График работы", "ПК"
     ])
 
     while count < 100:
