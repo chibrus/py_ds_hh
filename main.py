@@ -50,10 +50,6 @@ def pars(query, city):
     Автор:
     - Глинник Егор
     """
-    # Обнуление статистики. Вызов функции для сбора данных
-    library.parser.count = 0
-    library.parser.gradesG = [0, 0, 0, 0]
-    library.parser.postsG = [0, 0, 0, 0, 0]
     grades, posts = library.parser.main(query, city)
     df = library.graph_generator.main()
 

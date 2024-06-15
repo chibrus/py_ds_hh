@@ -15,9 +15,9 @@
 
 Переменные:
 - count: Счетчик количества обработанных вакансий.
-- gradesG: Список для подсчета количества вакансий
+- grades: Список для подсчета количества вакансий
   по категориям (Junior, Middle, Senior).
-- postsG: Список для подсчета количества вакансий
+- posts: Список для подсчета количества вакансий
   по должностям (Backend, Frontend, QA, Аналитик, Mobile).
 
 Пример использования (если файл используется как скрипт):
@@ -28,10 +28,6 @@
 import requests
 import openpyxl
 import os
-
-count = 0
-gradesG = [0, 0, 0, 0]  # Junior, Middle, Senior
-postsG = [0, 0, 0, 0, 0]  # Backend, Frontend, QA, Аналитик, Mobile
 
 
 def get_data(query, page):
@@ -54,7 +50,7 @@ def get_data(query, page):
     return response.json()
 
 
-def excel_generator(ws, data, query_city):
+def excel_generator(ws, data, query_city, count, grades, posts):
     """
     Генерирует содержимое Excel-файла на основе полученных данных о вакансиях.
 
@@ -69,10 +65,6 @@ def excel_generator(ws, data, query_city):
     Автор:
     - Глинник Егор
     """
-    global gradesG
-    global postsG
-    global count
-
     for vacancy in data["items"]:
         title = vacancy["name"]
         city = vacancy["area"]["name"]
@@ -103,26 +95,28 @@ def excel_generator(ws, data, query_city):
             name = title.lower()
             # grades
             if "junior" in name:
-                gradesG[0] += 1
+                grades[0] += 1
             elif "middle" in name:
-                gradesG[1] += 1
+                grades[1] += 1
             elif "senior" in name:
-                gradesG[2] += 1
+                grades[2] += 1
             else:
-                gradesG[3] += 1
+                grades[3] += 1
             # posts
             if any(keyword in name for keyword in ["android", "ios", "мобильный"]):
-                postsG[4] += 1
+                posts[4] += 1
             if "frontend" in name:
-                postsG[1] += 1
+                posts[1] += 1
             elif any(keyword in name for keyword in [
                 "backend", "разработчик", "программист", "developer"
             ]):
-                postsG[0] += 1
+                posts[0] += 1
             if any(keyword in name for keyword in ["qa", "тестировщик"]):
-                postsG[2] += 1
+                posts[2] += 1
             if any(keyword in name for keyword in ["analyst", "аналитик"]):
-                postsG[3] += 1
+                posts[3] += 1
+    
+    return count, grades, posts
 
 
 def main(query, query_city):
@@ -135,17 +129,17 @@ def main(query, query_city):
     - query_city: Строка с названием города для фильтрации вакансий.
 
     Выходные данные:
-    - gradesG: Список с количеством вакансий
+    - grades: Список с количеством вакансий
       по категориям (Junior, Middle, Senior).
-    - postsG: Список с количеством вакансий
+    - posts: Список с количеством вакансий
       по должностям (Backend, Frontend, QA, Аналитик, Mobile).
 
     Автор:
     - Глинник Егор
     """
-    global count
-    global gradesG
-    global postsG
+    count = 0
+    grades = [0, 0, 0, 0]  # Junior, Middle, Senior
+    posts = [0, 0, 0, 0, 0]  # Backend, Frontend, QA, Аналитик, Mobile
 
     page = 0
     wb = openpyxl.Workbook()
@@ -166,7 +160,7 @@ def main(query, query_city):
     while count < 100:
         try:
             data = get_data(query, page)
-            excel_generator(ws, data, query_city)
+            count, grades, posts = excel_generator(ws, data, query_city, count, grades, posts)
             page += 1
         except Exception as e:
             print(e)
@@ -177,11 +171,11 @@ def main(query, query_city):
         os.makedirs(data_dir)
     wb.save(os.path.join(data_dir, "data.xlsx"))
 
-    return gradesG, postsG
+    return grades, posts
 
 
 if __name__ == "__main__":
     query = "Python разработчик"
     query_city = ""
-    main(query, query_city)
-    print("DONE")
+    grades, posts = main(query, query_city)
+    print(f"DONE\ngrades:{grades}\nposts:{posts}")
