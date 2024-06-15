@@ -86,10 +86,39 @@ def excel_generator(ws, data, query_city):
         has_test = "Есть" if vacancy.get("has_test", False) else "Нет"
         schedule = vacancy.get("schedule", {}).get("name", "-")
         id = vacancy.get("id")
-
-        if query_city == city and salary != "-":
+        if query_city != "" and query_city == city and salary != "-":
             ws.append([
                 title, salary, employer_name, experience,
+                requirements, employment_type, has_test, schedule, id
+            ])
+            count += 1
+
+            name = title.lower()
+            # grades
+            if "junior" in name:
+                gradesG[0] += 1
+            elif "middle" in name:
+                gradesG[1] += 1
+            elif "senior" in name:
+                gradesG[2] += 1
+            else:
+                gradesG[3] += 1
+            # posts
+            if any(keyword in name for keyword in ["android", "ios", "мобильный"]):
+                postsG[4] += 1
+            if "frontend" in name:
+                postsG[1] += 1
+            elif any(keyword in name for keyword in [
+                "backend", "разработчик", "программист", "developer"
+            ]):
+                postsG[0] += 1
+            if any(keyword in name for keyword in ["qa", "тестировщик"]):
+                postsG[2] += 1
+            if any(keyword in name for keyword in ["analyst", "аналитик"]):
+                postsG[3] += 1
+        else:
+            ws.append([
+                city, title, salary, employer_name, experience,
                 requirements, employment_type, has_test, schedule, id
             ])
             count += 1
@@ -144,11 +173,18 @@ def main(query, query_city):
     page = 0
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.append([
-        "Название вакансии", "Зарплата", "Название работодателя", "Опыт работы",
-        "Требования", "Тип занятости", "Наличие теста для кандидатов",
-        "График работы", "ПК"
-    ])
+    if query_city != "":
+        ws.append([
+            "Название вакансии", "Зарплата", "Название работодателя", "Опыт работы",
+            "Требования", "Тип занятости", "Наличие теста для кандидатов",
+            "График работы", "ПК"
+        ])
+    else:
+        ws.append([
+            "Город", "Название вакансии", "Зарплата", "Название работодателя", "Опыт работы",
+            "Требования", "Тип занятости", "Наличие теста для кандидатов",
+            "График работы", "ПК"
+        ])
 
     while count < 100:
         try:
