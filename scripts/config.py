@@ -10,7 +10,6 @@
 - change_font(root, size, family, head_label, query_label, query_entry, city_label, city_entry,
         final_label, user_graph_label, user_col1_combobox, user_col2_combobox, user_type_combobox,
         text_report_label): Изменяет шрифт для различных элементов интерфейса.
-- center_frame_content(frame): Центрирует содержимое фрейма.
 """
 
 import configparser
