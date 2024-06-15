@@ -27,12 +27,12 @@ def plot_clustered_bar(df, col1, col2):
     """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
-    ax = sns.barplot(data=df, x=col1, y=col2, hue=col1, dodge=False, palette='husl', legend=False, alpha=0.8,
+    ax = sns.barplot(data=df, x=col2, y=col1, hue=col1, dodge=False, palette='husl', legend=False, alpha=0.8,
                      errorbar=None)  # Используем яркие цвета и добавляем прозрачность
     plt.title('Кластеризованная столбчатая диаграмма', fontsize=18,
               fontweight='bold')  # Увеличиваем размер заголовка и делаем его жирным
-    plt.xlabel(col1, fontsize=14, fontweight='bold')  # Делаем подпись оси x жирной
-    plt.ylabel(col2, fontsize=14, fontweight='bold')  # Делаем подпись оси y жирной
+    plt.xlabel(col2, fontsize=14, fontweight='bold')  # Делаем подпись оси x жирной
+    plt.ylabel(col1, fontsize=14, fontweight='bold')  # Делаем подпись оси y жирной
     plt.yticks(fontsize=12)
 
     # Добавляем метки на каждом столбце
@@ -72,8 +72,8 @@ def plot_categorized_histogram(df, col1, col2):
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
     ax = sns.histplot(data=df, y=col1, x=col2, multiple='stack', alpha=0.8)
     plt.title('Категоризированная гистограмма', fontsize=18, fontweight='bold', color='navy')
-    plt.xlabel(col1, fontsize=14, fontweight='bold', color='darkblue')  # Делаем подпись оси x жирной
-    plt.ylabel(col2, fontsize=14, fontweight='bold', color='darkblue')  # Делаем подпись оси y жирной
+    plt.xlabel(col2, fontsize=14, fontweight='bold', color='darkblue')  # Делаем подпись оси x жирной
+    plt.ylabel(col1, fontsize=14, fontweight='bold', color='darkblue')  # Делаем подпись оси y жирной
     plt.xticks(fontsize=12, ha='right', color='gray')  # Поворачиваем и выравниваем подписи оси x
     plt.yticks(fontsize=12, color='gray')
 
@@ -144,12 +144,12 @@ def plot_categorized_scatter(df, col1, col2):
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
     ax = sns.scatterplot(
-        data=agg_df, x=col1, y='Количество вакансий', hue=col2, s=150, palette='viridis', alpha=0.8, edgecolor='k',
+        data=agg_df, y=col1, x='Количество вакансий', hue=col2, s=150, palette='viridis', alpha=0.8, edgecolor='k',
         linewidth=1.5
     )
     plt.title('Категоризированная диаграмма рассеивания', fontsize=22, fontweight='bold', color='navy')
-    plt.xlabel(col1, fontsize=16, fontweight='bold', color='darkblue')  # Делаем подпись оси x жирной
-    plt.ylabel('Количество вакансий', fontsize=16, fontweight='bold', color='darkblue')  # Делаем подпись оси y жирной
+    plt.xlabel('Количество вакансий', fontsize=16, fontweight='bold', color='darkblue')  # Делаем подпись оси y жирной
+    plt.ylabel(col1, fontsize=16, fontweight='bold', color='darkblue')  # Делаем подпись оси x жирной
     plt.xticks(fontsize=14, color='gray')  # Делаем подписи оси x серыми
     plt.yticks(fontsize=14, color='gray')  # Делаем подписи оси y серыми
     plt.legend(title=col2, fontsize=12, title_fontsize=14)  # Увеличиваем размер шрифта в легенде и делаем его жирным

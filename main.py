@@ -80,14 +80,22 @@ def pars(query, city):
         state=NORMAL
     )
 
+    # Изменение выпадающих списков Пользовательские графики
+    user_graph_columns = [
+            "Зарплата", "Опыт работы", "Тип занятости",
+            "Наличие теста для кандидатов", "График работы"
+        ]
+    if city == "":
+        user_graph_columns.insert(0, "Город")
+    user_col1_combobox.configure(values=user_graph_columns)
+    
     # Выдача команд для кнопки Пользовательские графики
     user_graph_button.configure(
         command=lambda: library.user_graph.main(
             user_col1_combobox.get(),
             user_col2_combobox.get(),
             user_type_combobox.get()
-        ),
-        state=NORMAL
+        ), state=NORMAL
     )
 
     # Выдача команд для кнопок Текстовые отчёты
@@ -209,15 +217,15 @@ user_graph_combobox_frame = ttk.Frame(user_graph_frame)
 user_graph_combobox_frame.pack(pady=10)
 
 # Список хранит пункты выпадающих списков
-columns = [
+user_graph_columns = [
     "Зарплата", "Опыт работы", "Тип занятости",
     "Наличие теста для кандидатов", "График работы"
 ]
 
-user_col1_combobox = ttk.Combobox(user_graph_combobox_frame, values=columns, font=font)
+user_col1_combobox = ttk.Combobox(user_graph_combobox_frame, values=user_graph_columns, font=font)
 user_col1_combobox.pack(side=LEFT, padx=5, pady=5)
 
-user_col2_combobox = ttk.Combobox(user_graph_combobox_frame, values=columns, font=font)
+user_col2_combobox = ttk.Combobox(user_graph_combobox_frame, values=user_graph_columns, font=font)
 user_col2_combobox.pack(side=LEFT, padx=5, pady=5)
 
 user_type_combobox = ttk.Combobox(
