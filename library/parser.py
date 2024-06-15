@@ -86,41 +86,18 @@ def excel_generator(ws, data, query_city):
         has_test = "Есть" if vacancy.get("has_test", False) else "Нет"
         schedule = vacancy.get("schedule", {}).get("name", "-")
         id = vacancy.get("id")
-        if query_city != "" and query_city == city and salary != "-":
-            ws.append([
-                title, salary, employer_name, experience,
-                requirements, employment_type, has_test, schedule, id
-            ])
-            count += 1
-
-            name = title.lower()
-            # grades
-            if "junior" in name:
-                gradesG[0] += 1
-            elif "middle" in name:
-                gradesG[1] += 1
-            elif "senior" in name:
-                gradesG[2] += 1
+        
+        if (query_city == city or query_city == "") and salary != "-":
+            if query_city != "":
+                ws.append([
+                    title, salary, employer_name, experience,
+                    requirements, employment_type, has_test, schedule, id
+                ])
             else:
-                gradesG[3] += 1
-            # posts
-            if any(keyword in name for keyword in ["android", "ios", "мобильный"]):
-                postsG[4] += 1
-            if "frontend" in name:
-                postsG[1] += 1
-            elif any(keyword in name for keyword in [
-                "backend", "разработчик", "программист", "developer"
-            ]):
-                postsG[0] += 1
-            if any(keyword in name for keyword in ["qa", "тестировщик"]):
-                postsG[2] += 1
-            if any(keyword in name for keyword in ["analyst", "аналитик"]):
-                postsG[3] += 1
-        else:
-            ws.append([
-                city, title, salary, employer_name, experience,
-                requirements, employment_type, has_test, schedule, id
-            ])
+                ws.append([
+                    city, title, salary, employer_name, experience,
+                    requirements, employment_type, has_test, schedule, id
+                ])
             count += 1
 
             name = title.lower()
@@ -204,6 +181,7 @@ def main(query, query_city):
 
 
 if __name__ == "__main__":
-    query = "Test"
-    query_city = "Москва"
+    query = "Python разработчик"
+    query_city = ""
     main(query, query_city)
+    print("DONE")
