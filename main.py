@@ -50,7 +50,7 @@ def pars(query, city):
     Автор:
     - Глинник Егор
     """
-
+    # Обнуление статистики. Вызов функции для сбора данных
     library.parser.count = 0
     library.parser.gradesG = [0, 0, 0, 0]
     library.parser.postsG = [0, 0, 0, 0, 0]
@@ -108,12 +108,15 @@ def pars(query, city):
         state=NORMAL
     )
 
+    # Обновление надписи Статус
     final_label.configure(text="Готово!", bootstyle="success")
 
 
 
+# Считывание данных их config.ini
 config = read_config('scripts/config.ini')
 
+# Создание окна
 root = Tk()
 root.geometry(config.get('Window', 'size'))
 style = Style(theme=config.get('Interface', 'theme'))
@@ -171,8 +174,7 @@ notebook.add(graphs_frame, text="Графики")
 graphs_label = ttk.Label(graphs_frame, text="Графики", bootstyle="primary", font=font)
 graphs_label.pack(pady=10)
 
-
-# Фрейм для кнопок (внутри фрейма графиков)
+# Фрейм для кнопок графиков (внутри фрейма графиков)
 buttons_frame = ttk.Frame(graphs_frame)
 buttons_frame.pack(pady=10)
 
@@ -206,9 +208,11 @@ user_graph_label = ttk.Label(
 )
 user_graph_label.pack(pady=5)
 
+# Фрейм для выпадающих списков (внутри фрейма пользовательских графиков)
 user_graph_combobox_frame = ttk.Frame(user_graph_frame)
 user_graph_combobox_frame.pack(pady=10)
 
+# Список хранит пункты выпадающих списков
 columns = [
     "Зарплата", "Опыт работы", "Тип занятости",
     "Наличие теста для кандидатов", "График работы"
@@ -241,6 +245,7 @@ text_report_label = ttk.Label(
 )
 text_report_label.pack(pady=5)
 
+# Фрейм для кнопок текстовых отчётов (внутри фрейма текстовых отчётов)
 text_report_buttons_frame = ttk.Frame(text_report_frame)
 text_report_buttons_frame.pack(pady=10)
 
@@ -286,24 +291,33 @@ theme4_button = ttk.Button(
 )
 theme4_button.pack(side=LEFT, padx=5)
 
+# Словарь хранит виджеты, в которых меняется шрифт
+widgets = {
+    "head_label": head_label,
+    "query_label": query_label,
+    "query_entry": query_entry,
+    "city_label": city_label,
+    "city_entry": city_entry,
+    "final_label": final_label,
+    "graphs_label": graphs_label,
+    "user_graph_label": user_graph_label,
+    "user_col1_combobox": user_col1_combobox,
+    "user_col2_combobox": user_col2_combobox,
+    "user_type_combobox": user_type_combobox,
+    "text_report_label": text_report_label,
+}
+
 font1_button = ttk.Button(
     theme_buttons_frame, text="Arial",
-    command=lambda: change_font(
-        root, 14, "Arial", head_label, query_label, query_entry, city_label, city_entry,
-        final_label, graphs_label, user_graph_label, user_col1_combobox, user_col2_combobox,
-        user_type_combobox, text_report_label
-    )
+    command=lambda: change_font(root, 14, "Arial", widgets)
 )
 font1_button.pack(side=RIGHT, padx=5)
 
 font2_button = ttk.Button(
     theme_buttons_frame, text="Times New Roman",
-    command=lambda: change_font(
-        root, 14, "Times New Roman", head_label, query_label, query_entry, city_label, city_entry,
-        final_label, graphs_label, user_graph_label, user_col1_combobox, user_col2_combobox,
-        user_type_combobox, text_report_label
-    )
+    command=lambda: change_font(root, 14, "Times New Roman", widgets)
 )
 font2_button.pack(side=RIGHT, padx=5)
+
 
 root.mainloop()

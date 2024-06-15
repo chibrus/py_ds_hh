@@ -54,11 +54,7 @@ def change_theme(root, style, theme: str):
     root.update()
 
 
-def change_font(
-    root, size: int, family: str, head_label, query_label, query_entry, city_label,
-    city_entry, final_label, graphs_label, user_graph_label, user_col1_combobox,
-    user_col2_combobox, user_type_combobox, text_report_label
-):
+def change_font(root, size: int, family: str, widgets: dict):
     """
     Изменяет шрифт для различных элементов интерфейса.
 
@@ -88,18 +84,20 @@ def change_font(
     Данная функция изменяет шрифт для указанных элементов и обновляет интерфейс.
     """
     font = (family, size)
-    head_label.configure(font=(family, size + 16))
-    query_label.configure(font=font)
-    query_entry.configure(font=font)
-    city_label.configure(font=font)
-    city_entry.configure(font=font)
-    final_label.configure(font=font)
-    graphs_label.configure(font=font)
-    user_graph_label.configure(font=font)
-    user_col1_combobox.configure(font=font)
-    user_col2_combobox.configure(font=font)
-    user_type_combobox.configure(font=font)
-    text_report_label.configure(font=font)
+    
+    widgets["head_label"].configure(font=(family, size + 16))
+    widgets["query_label"].configure(font=font)
+    widgets["query_entry"].configure(font=font)
+    widgets["city_label"].configure(font=font)
+    widgets["city_entry"].configure(font=font)
+    widgets["final_label"].configure(font=font)
+    widgets["graphs_label"].configure(font=font)
+    widgets["user_graph_label"].configure(font=font)
+    widgets["user_col1_combobox"].configure(font=font)
+    widgets["user_col2_combobox"].configure(font=font)
+    widgets["user_type_combobox"].configure(font=font)
+    widgets["text_report_label"].configure(font=font)
+    
     root.update_idletasks()
     root.update()
     root.update_idletasks()
