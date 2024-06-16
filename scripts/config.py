@@ -83,7 +83,7 @@ def change_font(root, size: int, family: str, widgets: dict):
     Данная функция изменяет шрифт для указанных элементов и обновляет интерфейс.
     """
     font = (family, size)
-    
+
     widgets["head_label"].configure(font=(family, size + 16))
     widgets["query_label"].configure(font=font)
     widgets["query_entry"].configure(font=font)
@@ -96,7 +96,7 @@ def change_font(root, size: int, family: str, widgets: dict):
     widgets["user_col2_combobox"].configure(font=font)
     widgets["user_type_combobox"].configure(font=font)
     widgets["text_report_label"].configure(font=font)
-    
+
     root.update_idletasks()
     root.update()
     root.update_idletasks()

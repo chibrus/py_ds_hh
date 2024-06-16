@@ -25,9 +25,9 @@
 - query_city: Строка с названием города для фильтрации вакансий.
 """
 
+import os
 import requests
 import openpyxl
-import os
 
 
 def get_data(query, page):
@@ -78,7 +78,7 @@ def excel_generator(ws, data, query_city, count, grades, posts):
         has_test = "Есть" if vacancy.get("has_test", False) else "Нет"
         schedule = vacancy.get("schedule", {}).get("name", "-")
         id = vacancy.get("id")
-        
+
         if (query_city == city or query_city == "") and salary != "-":
             if query_city != "":
                 ws.append([
@@ -115,7 +115,7 @@ def excel_generator(ws, data, query_city, count, grades, posts):
                 posts[2] += 1
             if any(keyword in name for keyword in ["analyst", "аналитик"]):
                 posts[3] += 1
-    
+
     return count, grades, posts
 
 
@@ -172,10 +172,3 @@ def main(query, query_city):
     wb.save(os.path.join(data_dir, "data.xlsx"))
 
     return grades, posts
-
-
-if __name__ == "__main__":
-    query = "Python разработчик"
-    query_city = ""
-    grades, posts = main(query, query_city)
-    print(f"DONE\ngrades:{grades}\nposts:{posts}")

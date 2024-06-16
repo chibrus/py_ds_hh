@@ -1,3 +1,34 @@
+"""
+Модуль для анализа данных о вакансиях и создания различных графиков.
+
+Этот модуль включает функции для:
+- Создания графиков зависимости количества вакансий от зарплаты.
+- Создания графиков распределения количества вакансий по опыту работы, типу занятости и требованиям.
+- Возвращения списка технологий в зависимости от запроса.
+- Создания графиков распределения количества вакансий по уровням и специальностям.
+
+Функции:
+- create_salary_vs_vacancies_plot(df):
+Создает и сохраняет график зависимости количества вакансий от зарплаты.
+- create_experience_vs_vacancies_plot(df):
+Создает и сохраняет график распределения количества вакансий по опыту работы.
+- create_employment_type_vs_vacancies_plot(df):
+Создает и сохраняет график распределения количества вакансий по типу занятости.
+- stack(query):
+Возвращает список технологий в зависимости от запроса.
+- create_requirements_vs_vacancies_plot(df, query):
+Создает и сохраняет график распределения количества вакансий по требованиям.
+- create_level_vs_vacancies_plot(level_counts):
+Создает и сохраняет график распределения количества вакансий по уровням.
+- create_specialty_vs_vacancies_plot(specialty_counts):
+Создает и сохраняет график распределения количества вакансий по специальностям.
+- main():
+Основная функция для анализа данных о вакансиях.
+
+Авторы:
+- Елисеев Иван
+- Глинник Егор
+"""
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,7 +44,8 @@ def create_salary_vs_vacancies_plot(df):
     Создает график зависимости количества вакансий от зарплаты.
 
     Входные данные:
-    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях. Ожидается наличие столбца 'Зарплата'.
+    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях.
+    Ожидается наличие столбца 'Зарплата'.
 
     Выходные данные:
     Создается и сохраняется график в файле 'salary_vs_vacancies.png' в директории output.
@@ -32,8 +64,8 @@ def create_salary_vs_vacancies_plot(df):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.scatterplot(x='Зарплата', y='Количество вакансий', data=salary_counts, s=100, color='blue', alpha=0.6,
-                    edgecolor='w')
+    sns.scatterplot(x='Зарплата', y='Количество вакансий', data=salary_counts,
+                    s=100, color='blue', alpha=0.6, edgecolor='w')
 
     # Настройка графика
     plt.title('Распределение количества вакансий по зарплате', fontsize=16)
@@ -53,7 +85,8 @@ def create_experience_vs_vacancies_plot(df):
     Создает график распределения количества вакансий по опыту работы.
 
     Входные данные:
-    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях. Ожидается наличие столбца 'Опыт работы'.
+    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях.
+    Ожидается наличие столбца 'Опыт работы'.
 
     Выходные данные:
     Создается и сохраняется график в файле 'experience_vs_vacancies.png' в директории output.
@@ -67,7 +100,8 @@ def create_experience_vs_vacancies_plot(df):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Опыт работы', y='Количество вакансий', data=experience_counts, hue='Опыт работы', dodge=False, palette='viridis', legend=False)
+    sns.barplot(x='Опыт работы', y='Количество вакансий', data=experience_counts,
+                hue='Опыт работы', dodge=False, palette='viridis', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по опыту работы', fontsize=16)
@@ -87,7 +121,8 @@ def create_employment_type_vs_vacancies_plot(df):
     Создает график распределения количества вакансий по типу занятости.
 
     Входные данные:
-    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях. Ожидается наличие столбца 'Тип занятости'.
+    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях.
+    Ожидается наличие столбца 'Тип занятости'.
 
     Выходные данные:
     Создается и сохраняется график в файле 'employment_type_vs_vacancies.png' в директории output.
@@ -101,7 +136,8 @@ def create_employment_type_vs_vacancies_plot(df):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Тип занятости', y='Количество вакансий', data=employment_counts, hue='Тип занятости', dodge=False, palette='plasma', legend=False)
+    sns.barplot(x='Тип занятости', y='Количество вакансий', data=employment_counts,
+                hue='Тип занятости', dodge=False, palette='plasma', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по типу занятости', fontsize=16)
@@ -130,32 +166,43 @@ def stack(query: str) -> list:
     - Глинник Егор
     """
     res_stack = []
-    
+
     if "python" in query:
-        res_stack = ['SQL', 'Django', 'Linux', 'Shell', 'Git', 'Flask', 'API', 'Docker']
+        res_stack = ['SQL', 'Django', 'Linux', 'Shell',
+                     'Git', 'Flask', 'API', 'Docker']
     elif "c++" in query:
-        res_stack = ['STL', 'Boost', 'Qt', 'CMake', 'Linux', 'Multithreading', 'OpenGL', 'Git']
+        res_stack = ['STL', 'Boost', 'Qt', 'CMake', 'Linux',
+                     'Multithreading', 'OpenGL', 'Git']
     elif "c#" in query:
-        res_stack = ['.NET', 'ASP.NET', 'Entity Framework', 'LINQ', 'WPF', 'Xamarin', 'Azure', 'SQL']
+        res_stack = ['.NET', 'ASP.NET', 'Entity Framework',
+                     'LINQ', 'WPF', 'Xamarin', 'Azure', 'SQL']
     elif "javascript" in query:
-        res_stack = ['Node.js', 'React', 'Vue.js', 'Angular', 'ES6', 'TypeScript', 'Webpack', 'Jest']
+        res_stack = ['Node.js', 'React', 'Vue.js', 'Angular',
+                     'ES6', 'TypeScript', 'Webpack', 'Jest']
     elif "java" in query:
-        res_stack = ['Spring', 'Hibernate', 'Maven', 'JPA', 'Microservices', 'Kubernetes', 'Jenkins', 'SQL']
+        res_stack = ['Spring', 'Hibernate', 'Maven', 'JPA', 'Microservices',
+                     'Kubernetes', 'Jenkins', 'SQL']
     elif "web" in query:
-        res_stack = ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL', 'WordPress', 'Bootstrap', 'jQuery']
+        res_stack = ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL',
+                     'WordPress', 'Bootstrap', 'jQuery']
     elif "go" in query:
-        res_stack = ['Golang', 'Docker', 'Kubernetes', 'Microservices', 'REST', 'gRPC', 'PostgreSQL', 'Redis']
+        res_stack = ['Golang', 'Docker', 'Kubernetes', 'Microservices',
+                     'REST', 'gRPC', 'PostgreSQL', 'Redis']
     elif "swift" in query:
-        res_stack = ['iOS', 'Xcode', 'CocoaPods', 'CoreData', 'SwiftUI', 'Objective-C', 'UIKit', 'REST']
+        res_stack = ['iOS', 'Xcode', 'CocoaPods', 'CoreData', 'SwiftUI',
+                     'Objective-C', 'UIKit', 'REST']
     elif "ruby" in query:
-        res_stack = ['Rails', 'Sinatra', 'RSpec', 'Capistrano', 'Puma', 'Sidekiq', 'PostgreSQL', 'Heroku']
+        res_stack = ['Rails', 'Sinatra', 'RSpec', 'Capistrano', 'Puma',
+                     'Sidekiq', 'PostgreSQL', 'Heroku']
     elif "kotlin" in query:
-        res_stack = ['Android', 'Ktor', 'Spring', 'Coroutines', 'Koin', 'Jetpack Compose', 'SQL', 'Gradle']
+        res_stack = ['Android', 'Ktor', 'Spring', 'Coroutines', 'Koin',
+                     'Jetpack Compose', 'SQL', 'Gradle']
     elif "c" in query.split():
-        res_stack = ['Embedded', 'RTOS', 'Microcontrollers', 'Linux', 'Kernel', 'GDB', 'Assembly', 'Makefile']
+        res_stack = ['Embedded', 'RTOS', 'Microcontrollers', 'Linux',
+                     'Kernel', 'GDB', 'Assembly', 'Makefile']
     else:
         res_stack = ['SQL', 'Linux', 'Shell', 'Git', 'API', 'Docker']
-    
+
     return res_stack
 
 
@@ -164,7 +211,8 @@ def create_requirements_vs_vacancies_plot(df, query):
     Создает график распределения количества вакансий по требованиям.
 
     Входные данные:
-    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях. Ожидается наличие столбца 'Требования'.
+    df (pandas.DataFrame): DataFrame, содержащий данные о вакансиях.
+    Ожидается наличие столбца 'Требования'.
     query (str): Запрос, определяющий стек технологий для анализа.
 
     Выходные данные:
@@ -172,13 +220,15 @@ def create_requirements_vs_vacancies_plot(df, query):
     График отображается на экране.
     """
     keywords = stack(query)
-    requirements_counts = {keyword: df['Требования'].str.contains(keyword, case=False, na=False).sum() for keyword in
-                           keywords}
-    requirements_counts = pd.DataFrame(list(requirements_counts.items()), columns=['Требование', 'Количество вакансий'])
+    requirements_cnts = {keyword: df['Требования'].str.contains(keyword, case=False, na=False).sum()
+                           for keyword in keywords}
+    requirements_cnts = pd.DataFrame(list(requirements_cnts.items()),
+                                     columns=['Требование', 'Количество вакансий'])
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Требование', y='Количество вакансий', data=requirements_counts, hue='Требование', dodge=False, palette='magma', legend=False)
+    sns.barplot(x='Требование', y='Количество вакансий', data=requirements_cnts,
+                hue='Требование', dodge=False, palette='magma', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по требованиям', fontsize=16)
@@ -212,7 +262,8 @@ def create_level_vs_vacancies_plot(level_counts):
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Уровень', y='Количество вакансий', data=level_data, hue='Уровень', dodge=False, palette='coolwarm', legend=False)
+    sns.barplot(x='Уровень', y='Количество вакансий', data=level_data,
+                hue='Уровень', dodge=False, palette='coolwarm', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по уровням', fontsize=16)
@@ -241,12 +292,15 @@ def create_specialty_vs_vacancies_plot(specialty_counts):
     Автор:
     Елисеев Иван
     """
-    specialties = ['Backend-разработчик', 'Frontend-разработчик', 'QA-инженер', 'Аналитик', 'Mobile-разработчик']
-    specialty_data = pd.DataFrame({'Специальность': specialties, 'Количество вакансий': specialty_counts})
+    specialties = ['Backend-разработчик', 'Frontend-разработчик',
+                   'QA-инженер', 'Аналитик', 'Mobile-разработчик']
+    specialty_data = pd.DataFrame({'Специальность': specialties,
+                                   'Количество вакансий': specialty_counts})
 
     # Создание графика
     plt.figure(figsize=(10, 6))
-    sns.barplot(x='Специальность', y='Количество вакансий', data=specialty_data, hue='Специальность', dodge=False, palette='cubehelix', legend=False)
+    sns.barplot(x='Специальность', y='Количество вакансий', data=specialty_data,
+                hue='Специальность', dodge=False, palette='cubehelix', legend=False)
 
     # Настройка графика
     plt.title('Распределение количества вакансий по специальностям', fontsize=16)
@@ -280,4 +334,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

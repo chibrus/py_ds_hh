@@ -1,8 +1,27 @@
-import pandas as pd
-from tabulate import tabulate
+"""
+Модуль для генерации текстовых отчетов о вакансиях на основе данных из файла Excel.
+
+Этот модуль включает функции для:
+- Генерации текстовых отчетов о вакансиях по различным параметрам.
+- Создания и сохранения сводных таблиц по данным о вакансиях.
+- Создания статистического отчета по данным о вакансиях.
+- Открытия сгенерированных отчетов в текстовом редакторе операционной системы.
+
+Функции:
+- generate_vacancy_reports(): Генерирует текстовые отчеты о вакансиях на основе данных из файла.
+- generate_pivot_table_report(): Генерирует сводную таблицу на основе данных из файла.
+- generate_statistical_report(): Генерирует статистический отчет на основе данных из файла.
+- open_file(output_file: str): Открывает указанный файл в текстовом редакторе операционной системы.
+
+Авторы:
+- Елисеев Иван
+- Глинник Егор
+"""
 import os
 import sys
 import subprocess
+import pandas as pd
+from tabulate import tabulate
 
 
 def generate_vacancy_reports():
@@ -10,13 +29,13 @@ def generate_vacancy_reports():
     Генерирует текстовые отчеты о вакансиях на основе данных из файла Excel.
 
     Входные данные:
-    Нет входных данных
+    -
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
@@ -27,20 +46,31 @@ def generate_vacancy_reports():
     # Отчет по зарплате и работодателям
     salary_employer_columns = ['Название вакансии', 'Зарплата', 'Название работодателя']
     salary_employer_headers = ['Название вакансии', 'Зарплата', 'Название работодателя']
-    salary_employer_report = tabulate(df[salary_employer_columns], headers=salary_employer_headers, tablefmt="pretty")
+    salary_employer_report = tabulate(
+        df[salary_employer_columns],
+        headers=salary_employer_headers,
+        tablefmt="pretty"
+    )
     reports.append("Отчет по зарплате и работодателям\n" + salary_employer_report)
 
     # Отчет по опыту работы и типу занятости
     experience_employment_columns = ['Название вакансии', 'Опыт работы', 'Тип занятости']
     experience_employment_headers = ['Название вакансии', 'Опыт работы', 'Тип занятости']
-    experience_employment_report = tabulate(df[experience_employment_columns], headers=experience_employment_headers,
-                                            tablefmt="pretty")
+    experience_employment_report = tabulate(
+        df[experience_employment_columns],
+        headers=experience_employment_headers,
+        tablefmt="pretty"
+    )
     reports.append("Отчет по опыту работы и типу занятости\n" + experience_employment_report)
 
     # Отчет по наличию теста и графику работы
     test_schedule_columns = ['Название вакансии', 'Наличие теста для кандидатов', 'График работы']
     test_schedule_headers = ['Название вакансии', 'Наличие теста для кандидатов', 'График работы']
-    test_schedule_report = tabulate(df[test_schedule_columns], headers=test_schedule_headers, tablefmt="pretty")
+    test_schedule_report = tabulate(
+        df[test_schedule_columns],
+        headers=test_schedule_headers,
+        tablefmt="pretty"
+    )
     reports.append("Отчет по наличию теста и графику работы\n" + test_schedule_report)
 
     # Объединение всех отчетов в один файл
@@ -55,13 +85,13 @@ def generate_pivot_table_report():
     Читает данные из файла Excel, создает сводную таблицу и сохраняет её в текстовый файл.
 
     Входные данные: 
-    Нет входных данных
+    -
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
@@ -76,13 +106,8 @@ def generate_pivot_table_report():
     report_lines = []
 
     for row_attr, col_attr in attributes:
-        if row_attr not in df.columns or col_attr not in df.columns:
-            raise ValueError(f"Столбцы '{row_attr}' и/или '{col_attr}' не найдены в таблице.")
-
-        if pd.api.types.is_numeric_dtype(df[row_attr]) or pd.api.types.is_numeric_dtype(df[col_attr]):
-            raise ValueError(f"Столбцы '{row_attr}' и '{col_attr}' должны быть качественными.")
-
-        pivot_table = pd.pivot_table(df, index=row_attr, columns=col_attr, aggfunc=agg_func, fill_value=0)
+        pivot_table = pd.pivot_table(df, index=row_attr, columns=col_attr,
+                                     aggfunc=agg_func, fill_value=0)
         pivot_table = pivot_table.reset_index()
 
         report_lines.append(f"Сводная таблица для '{row_attr}' и '{col_attr}':\n")
@@ -101,13 +126,13 @@ def generate_statistical_report():
     Читает данные из файла Excel, вычисляет статистику и сохраняет её в текстовый файл.
 
     Входные данные:
-    Нет входных данных
+    -
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
@@ -125,8 +150,8 @@ def generate_statistical_report():
         stats['variance'] = df[quantitative_columns].var()
         stats = stats[['min', 'max', 'mean', 'std', 'variance']]
         report_lines.append(
-            tabulate(stats, headers=['Переменная', 'Мин', 'Макс', 'Среднее', 'Ст. отклонение', 'Дисперсия'],
-                     tablefmt="pretty"))
+            tabulate(stats, headers=['Переменная', 'Мин', 'Макс', 'Среднее',
+                                    'Ст. отклонение', 'Дисперсия'], tablefmt="pretty"))
         report_lines.append("\n")
 
     # Для качественных переменных
@@ -139,7 +164,8 @@ def generate_statistical_report():
             freq_table.columns = [column, 'Частота']
             freq_table['Процент'] = (freq_table['Частота'] / freq_table['Частота'].sum()) * 100
             freq_table['Процент'] = freq_table['Процент'].apply(lambda x: f"{x:.2f}%")
-            report_lines.append(tabulate(freq_table, headers=[column, 'Частота', 'Процент'], tablefmt="pretty"))
+            report_lines.append(tabulate(freq_table, headers=[column, 'Частота', 'Процент'],
+                                        tablefmt="pretty"))
             report_lines.append("\n")
 
     # Сохранение отчета в файл
@@ -154,10 +180,10 @@ def open_file(output_file: str):
     Открывает файл, который указан в output_file, в текстовом редакторе операционной системы.
 
     Входные данные:
-    Нет входных данных
+    -
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
     - Глинник Егор
