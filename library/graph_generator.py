@@ -116,7 +116,7 @@ def create_employment_type_vs_vacancies_plot(df):
     plt.show()
 
 
-def stack(query):
+def stack(query: str) -> list:
     """
     Возвращает стек технологий в зависимости от запроса.
 
@@ -129,30 +129,34 @@ def stack(query):
     Автор:
     - Глинник Егор
     """
+    res_stack = []
+    
     if "python" in query:
-        return ['SQL', 'Django', 'Linux', 'Shell', 'Git', 'Flask', 'API', 'Docker']
+        res_stack = ['SQL', 'Django', 'Linux', 'Shell', 'Git', 'Flask', 'API', 'Docker']
     elif "c++" in query:
-        return ['STL', 'Boost', 'Qt', 'CMake', 'Linux', 'Multithreading', 'OpenGL', 'Git']
+        res_stack = ['STL', 'Boost', 'Qt', 'CMake', 'Linux', 'Multithreading', 'OpenGL', 'Git']
     elif "c#" in query:
-        return ['.NET', 'ASP.NET', 'Entity Framework', 'LINQ', 'WPF', 'Xamarin', 'Azure', 'SQL']
+        res_stack = ['.NET', 'ASP.NET', 'Entity Framework', 'LINQ', 'WPF', 'Xamarin', 'Azure', 'SQL']
     elif "javascript" in query:
-        return ['Node.js', 'React', 'Vue.js', 'Angular', 'ES6', 'TypeScript', 'Webpack', 'Jest']
+        res_stack = ['Node.js', 'React', 'Vue.js', 'Angular', 'ES6', 'TypeScript', 'Webpack', 'Jest']
     elif "java" in query:
-        return ['Spring', 'Hibernate', 'Maven', 'JPA', 'Microservices', 'Kubernetes', 'Jenkins', 'SQL']
+        res_stack = ['Spring', 'Hibernate', 'Maven', 'JPA', 'Microservices', 'Kubernetes', 'Jenkins', 'SQL']
     elif "web" in query:
-        return ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL', 'WordPress', 'Bootstrap', 'jQuery']
+        res_stack = ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL', 'WordPress', 'Bootstrap', 'jQuery']
     elif "go" in query:
-        return ['Golang', 'Docker', 'Kubernetes', 'Microservices', 'REST', 'gRPC', 'PostgreSQL', 'Redis']
+        res_stack = ['Golang', 'Docker', 'Kubernetes', 'Microservices', 'REST', 'gRPC', 'PostgreSQL', 'Redis']
     elif "swift" in query:
-        return ['iOS', 'Xcode', 'CocoaPods', 'CoreData', 'SwiftUI', 'Objective-C', 'UIKit', 'REST']
+        res_stack = ['iOS', 'Xcode', 'CocoaPods', 'CoreData', 'SwiftUI', 'Objective-C', 'UIKit', 'REST']
     elif "ruby" in query:
-        return ['Rails', 'Sinatra', 'RSpec', 'Capistrano', 'Puma', 'Sidekiq', 'PostgreSQL', 'Heroku']
+        res_stack = ['Rails', 'Sinatra', 'RSpec', 'Capistrano', 'Puma', 'Sidekiq', 'PostgreSQL', 'Heroku']
     elif "kotlin" in query:
-        return ['Android', 'Ktor', 'Spring', 'Coroutines', 'Koin', 'Jetpack Compose', 'SQL', 'Gradle']
+        res_stack = ['Android', 'Ktor', 'Spring', 'Coroutines', 'Koin', 'Jetpack Compose', 'SQL', 'Gradle']
     elif "c" in query.split():
-        return ['Embedded', 'RTOS', 'Microcontrollers', 'Linux', 'Kernel', 'GDB', 'Assembly', 'Makefile']
+        res_stack = ['Embedded', 'RTOS', 'Microcontrollers', 'Linux', 'Kernel', 'GDB', 'Assembly', 'Makefile']
     else:
-        return ['SQL', 'Linux', 'Shell', 'Git', 'API', 'Docker']
+        res_stack = ['SQL', 'Linux', 'Shell', 'Git', 'API', 'Docker']
+    
+    return res_stack
 
 
 def create_requirements_vs_vacancies_plot(df, query):
