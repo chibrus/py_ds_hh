@@ -44,10 +44,10 @@ def plot_clustered_bar(df, col1, col2):
     col2 (str): Название столбца для оси y.
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
@@ -60,15 +60,6 @@ def plot_clustered_bar(df, col1, col2):
     plt.xlabel(col2, fontsize=14, fontweight='bold')  # Делаем подпись оси x жирной
     plt.ylabel(col1, fontsize=14, fontweight='bold')  # Делаем подпись оси y жирной
     plt.yticks(fontsize=12)
-
-    # Добавляем метки на каждом столбце
-    for p in ax.patches:
-        ax.annotate(format(p.get_height(), '.2f'),
-                    (p.get_x() + p.get_width() / 2., p.get_height()),
-                    ha='center', va='center',
-                    xytext=(0, 5),
-                    textcoords='offset points',
-                    fontsize=12)
 
     ax.yaxis.grid(True)
     ax.xaxis.grid(True)
@@ -89,10 +80,10 @@ def plot_categorized_histogram(df, col1, col2):
     col2 (str): Название столбца для оси x.
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)
@@ -125,10 +116,10 @@ def plot_categorized_boxplot(df, col1, col2):
     сol2 (str): Название столбца для оси x.
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
-    Елисеев Иван 
+    - Елисеев Иван 
     """
     plt.figure(figsize=(12, 8))
     sns.set(style="whitegrid", font_scale=1.2)  # Увеличиваем размер шрифта
@@ -164,10 +155,10 @@ def plot_categorized_scatter(df, col1, col2):
     col2 (str): Название столбца для категоризации данных.
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     # Аггрегирование данных для подсчета количества вакансий
     agg_df = df.groupby([col1, col2]).size().reset_index(name='Количество вакансий')
@@ -205,10 +196,10 @@ def main(col1, col2, plot_type):
     plot_type (str): Тип графика для построения.
 
     Выходные данные:
-    Нет выходных данных
+    -
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     if col1 != col2:
         # Путь к файлу данных

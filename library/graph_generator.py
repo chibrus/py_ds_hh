@@ -52,7 +52,7 @@ def create_salary_vs_vacancies_plot(df):
     График также отображается на экране.
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     # Преобразование данных по зарплате в числовой формат
     df['Зарплата'] = pd.to_numeric(df['Зарплата'], errors='coerce')
@@ -93,7 +93,7 @@ def create_experience_vs_vacancies_plot(df):
     График отображается на экране.
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     experience_counts = df['Опыт работы'].value_counts().reset_index()
     experience_counts.columns = ['Опыт работы', 'Количество вакансий']
@@ -129,7 +129,7 @@ def create_employment_type_vs_vacancies_plot(df):
     График отображается на экране.
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     employment_counts = df['Тип занятости'].value_counts().reset_index()
     employment_counts.columns = ['Тип занятости', 'Количество вакансий']
@@ -218,6 +218,9 @@ def create_requirements_vs_vacancies_plot(df, query):
     Выходные данные:
     Создается и сохраняется график в файле 'requirements_vs_vacancies.png' в директории output.
     График отображается на экране.
+
+    Автор:
+    - Елисеев Иван
     """
     keywords = stack(query)
     requirements_cnts = {keyword: df['Требования'].str.contains(keyword, case=False, na=False).sum()
@@ -255,7 +258,7 @@ def create_level_vs_vacancies_plot(level_counts):
     График отображается на экране.
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     levels = ['Junior-разработчик', 'Middle-разработчик', 'Senior-разработчик', 'Не указано']
     level_data = pd.DataFrame({'Уровень': levels, 'Количество вакансий': level_counts})
@@ -290,7 +293,7 @@ def create_specialty_vs_vacancies_plot(specialty_counts):
     График отображается на экране.
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     specialties = ['Backend-разработчик', 'Frontend-разработчик',
                    'QA-инженер', 'Аналитик', 'Mobile-разработчик']
@@ -322,7 +325,7 @@ def main():
     Возвращает DataFrame, содержащий данные о вакансиях из файла 'data.xlsx'.
 
     Автор:
-    Елисеев Иван
+    - Елисеев Иван
     """
     # Чтение данных из файла Excel
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
