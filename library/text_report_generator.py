@@ -13,9 +13,8 @@
 - generate_statistical_report(): Генерирует статистический отчет на основе данных из файла.
 - open_file(output_file: str): Открывает указанный файл в текстовом редакторе операционной системы.
 
-Авторы:
-- Елисеев Иван
-- Глинник Егор
+Автор:
+- Чибиров Руслан
 """
 import os
 import sys
@@ -35,7 +34,7 @@ def generate_vacancy_reports():
     -
 
     Автор:
-    - Елисеев Иван
+    - Чибиров Руслан
     """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
@@ -91,7 +90,7 @@ def generate_pivot_table_report():
     -
 
     Автор:
-    - Елисеев Иван
+    - Чибиров Руслан
     """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
@@ -132,7 +131,7 @@ def generate_statistical_report():
     -
 
     Автор:
-    - Елисеев Иван
+    - Чибиров Руслан
     """
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'data.xlsx')
     df = pd.read_excel(file_path)
@@ -186,7 +185,7 @@ def open_file(output_file: str):
     -
 
     Автор:
-    - Глинник Егор
+    - Чибиров Руслан
     """
     # Проверяем операционную систему
     if sys.platform.startswith('win'):

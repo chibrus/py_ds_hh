@@ -2,7 +2,7 @@
 Модуль для работы с конфигурационным файлом и изменения интерфейса программы.
 
 Автор:
-- Глинник Егор
+- Чибиров Руслан
 
 Функции:
 - read_config(filename): Считывает конфигурационный файл и возвращает объект ConfigParser.
@@ -26,7 +26,7 @@ def read_config(filename: str):
     - config: Объект ConfigParser.
 
     Автор:
-    - Глинник Егор
+    - Чибиров Руслан
     """
     config = configparser.ConfigParser()
     config.read(filename)
@@ -46,7 +46,7 @@ def change_theme(root, style, theme: str):
     -
 
     Автор:
-    - Глинник Егор
+    - Чибиров Руслан
     """
     style.theme_use(theme)
     root.update_idletasks()  # обновить интерфейс
@@ -77,7 +77,7 @@ def change_font(root, size: int, family: str, widgets: dict):
     -
 
     Автор:
-    - Глинник Егор
+    - Чибиров Руслан
 
     Примечание:
     Данная функция изменяет шрифт для указанных элементов и обновляет интерфейс.
