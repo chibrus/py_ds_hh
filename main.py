@@ -88,7 +88,7 @@ def pars(query, city):
     if city == "":
         user_graph_columns.insert(0, "Город")
     user_col1_combobox.configure(values=user_graph_columns)
-    
+
     # Выдача команд для кнопки Пользовательские графики
     user_graph_button.configure(
         command=lambda: library.user_graph.main(
