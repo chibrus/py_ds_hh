@@ -101,3 +101,7 @@ def change_font(root, size: int, family: str, widgets: dict):
     root.update()
     root.update_idletasks()
     root.update()
+
+
+def on_start():
+    print("Program is started!")

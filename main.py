@@ -13,7 +13,12 @@ import library.parser
 import library.graph_generator
 import library.user_graph
 import library.text_report_generator
-from scripts.config import read_config, change_theme, change_font
+from scripts.config import (
+    read_config,
+    change_theme,
+    change_font,
+    on_start,
+)
 
 
 def search():
@@ -323,5 +328,5 @@ font2_button = ttk.Button(
 )
 font2_button.pack(side=RIGHT, padx=5)
 
-
+root.after(0, on_start)
 root.mainloop()
